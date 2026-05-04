@@ -112,7 +112,7 @@ export const translations = {
         },
         {
           title: 'Restauracja App',
-          desc: 'Aplikacja do zarządzania menu restauracji – dodawanie, edycja i usuwanie dań, zarządzanie zamówieniami. Zbudowana w Next.js + Supabase.',
+          desc: 'Aplikacja do zarządzania menu restauracji – dodawanie, edycja i usuwanie dań, zarządzanie zamówieniami. Zbudowana w React + Vite + Supabase.',
           tech: ['React', 'Vite', 'Supabase', 'Tailwind CSS'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
           live: 'https://restaurant-clean-omega.vercel.app/menu',
@@ -276,7 +276,7 @@ export const translations = {
         },
         {
           title: 'Restauracja App',
-          desc: 'Restaurant menu management app — add, edit and delete dishes, manage orders. Built with Next.js + Supabase.',
+          desc: 'Restaurant menu management app — add, edit and delete dishes, manage orders. Built with React + Vite + Supabase.',
           tech: ['React', 'Vite', 'Supabase', 'Tailwind CSS'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
           live: 'https://restaurant-clean-omega.vercel.app/menu',

@@ -114,11 +114,11 @@ export const translations = {
           accent: '#7c3aed',
         },
         {
-          title: 'Restauracja App',
-          desc: 'Aplikacja do zarządzania menu restauracji – dodawanie, edycja i usuwanie dań, zarządzanie zamówieniami. Zbudowana w React + Vite + Supabase.',
-          tech: ['React', 'Vite', 'Supabase', 'Tailwind CSS'],
+          title: 'Restauracja – Zamów Online',
+          desc: 'Nowoczesna aplikacja webowa do składania zamówień w restauracji z systemem ról (klient, kuchnia, admin, kurier), płatnościami Stripe, panelami zarządzania menu, magazynem i dostawami. Przeznaczona dla restauracji, które chcą uruchomić cyfrowy system zamówień i zarządzania.',
+          tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Bootstrap', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
-          live: 'https://restaurant-clean-omega.vercel.app/menu',
+          live: 'https://restaurant-clean-omega.vercel.app',
           accent: '#f59e0b',
         },
         {
@@ -292,11 +292,11 @@ export const translations = {
           accent: '#7c3aed',
         },
         {
-          title: 'Restauracja App',
-          desc: 'Restaurant menu management app — add, edit and delete dishes, manage orders. Built with React + Vite + Supabase.',
-          tech: ['React', 'Vite', 'Supabase', 'Tailwind CSS'],
+          title: 'Restaurant – Order Online',
+          desc: 'A modern web application for placing restaurant orders with a role-based system (customer, kitchen, admin, courier), Stripe payments, and dedicated dashboards for menu management, warehouse inventory, and deliveries. Built for restaurants looking to implement a digital ordering and management system.',
+          tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Bootstrap', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
-          live: 'https://restaurant-clean-omega.vercel.app/menu',
+          live: 'https://restaurant-clean-omega.vercel.app',
           accent: '#f59e0b',
         },
         {

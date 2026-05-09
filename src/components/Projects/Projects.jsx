@@ -32,7 +32,7 @@ export default function Projects() {
           ref={headerRef}
           className={`${styles.header} fade-up ${headerVisible ? 'visible' : ''}`}
         >
-          <span className={styles.label}>Portfolio</span>
+          <span className={styles.label}>{t.projects.label}</span>
           <h2 className={styles.title}>{t.projects.title}</h2>
           <p className={styles.subtitle}>{t.projects.subtitle}</p>
         </div>

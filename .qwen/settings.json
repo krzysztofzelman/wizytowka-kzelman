@@ -3,8 +3,18 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "WebFetch(wizytowka-kzelman.vercel.app)",
+      "WebFetch(kawiarnia-swart.vercel.app)",
+      "WebFetch(github.com)",
+      "Bash(npx *)",
+      "Bash(dir *)",
+      "Bash(curl *)",
+      "Bash(select-object *)",
+      "Bash(powershell *)",
+      "WebFetch(restaurant-clean-omega.vercel.app)",
+      "Bash(npm run *)"
     ]
   },
-  "$version": 3
+  "$version": 4
 }

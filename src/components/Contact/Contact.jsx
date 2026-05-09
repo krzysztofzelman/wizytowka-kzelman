@@ -68,7 +68,7 @@ export default function Contact() {
         >
           {/* Left: text */}
           <div className={styles.textSide}>
-            <span className={styles.label}>Contact</span>
+            <span className={styles.label}>{t.contact.label}</span>
             <h2 className={styles.title}>{t.contact.title}</h2>
             <p className={styles.subtitle}>{t.contact.subtitle}</p>
 

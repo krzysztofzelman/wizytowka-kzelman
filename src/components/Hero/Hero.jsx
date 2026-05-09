@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './Hero.module.css';
 
-const BADGES = ['React', 'Node.js', 'AI-powered', 'Supabase', 'Vercel'];
-
 export default function Hero() {
   const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
@@ -40,7 +38,7 @@ export default function Hero() {
           <p className={styles.tagline}>{t.hero.tagline}</p>
 
           <div className={styles.badges}>
-            {BADGES.map(b => (
+            {t.hero.badges.map(b => (
               <span key={b} className={styles.badge}>{b}</span>
             ))}
           </div>

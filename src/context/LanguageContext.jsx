@@ -14,8 +14,10 @@ export const translations = {
       cta1: 'Zobacz projekty',
       cta2: 'Skontaktuj się',
       available: 'Dostępny na zlecenia',
+      badges: ['React', 'Node.js', 'AI', 'Supabase', 'Vercel'],
     },
     services: {
+      label: 'Freelancer',
       title: 'Moje usługi',
       subtitle: 'Kompleksowe rozwiązania webowe dopasowane do Twojego biznesu',
       items: [
@@ -90,6 +92,7 @@ export const translations = {
       ],
     },
     projects: {
+      label: 'Portfolio',
       title: 'Projekty',
       subtitle: 'Wybrane realizacje — kod otwarty, wyniki mierzalne',
       viewGithub: 'Kod na GitHub',
@@ -129,6 +132,7 @@ export const translations = {
       ],
     },
     whyMe: {
+      label: 'Wartość',
       title: 'Dlaczego ja?',
       subtitle: 'Co wyróżnia moją pracę spośród tysięcy freelancerów',
       items: [
@@ -155,6 +159,7 @@ export const translations = {
       ],
     },
     contact: {
+      label: 'Kontakt',
       title: 'Kontakt',
       subtitle: 'Porozmawiajmy o Twoim projekcie — odpowiadam w ciągu 24h',
       emailLabel: 'Email',
@@ -170,6 +175,7 @@ export const translations = {
       tagline: 'Tworzę cyfrowe produkty, które działają.',
       rights: 'Wszelkie prawa zastrzeżone',
       builtWith: 'Zbudowane z',
+      nav: ['Usługi', 'Logistyka', 'Projekty', 'Kontakt'],
     },
   },
 
@@ -186,8 +192,10 @@ export const translations = {
       cta1: 'View projects',
       cta2: 'Get in touch',
       available: 'Available for projects',
+      badges: ['React', 'Node.js', 'AI-powered', 'Supabase', 'Vercel'],
     },
     services: {
+      label: 'Freelancer',
       title: 'My services',
       subtitle: 'Comprehensive web solutions tailored to your business needs',
       items: [
@@ -262,6 +270,7 @@ export const translations = {
       ],
     },
     projects: {
+      label: 'Portfolio',
       title: 'Projects',
       subtitle: 'Selected works — open source, measurable results',
       viewGithub: 'Code on GitHub',
@@ -301,6 +310,7 @@ export const translations = {
       ],
     },
     whyMe: {
+      label: 'Value',
       title: 'Why me?',
       subtitle: 'What sets my work apart from thousands of freelancers',
       items: [
@@ -327,6 +337,7 @@ export const translations = {
       ],
     },
     contact: {
+      label: 'Contact',
       title: 'Contact',
       subtitle: "Let's talk about your project — I reply within 24h",
       emailLabel: 'Email',
@@ -342,6 +353,7 @@ export const translations = {
       tagline: 'Building digital products that work.',
       rights: 'All rights reserved',
       builtWith: 'Built with',
+      nav: ['Services', 'Logistics', 'Projects', 'Contact'],
     },
   },
 };

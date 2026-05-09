@@ -14,7 +14,7 @@ export default function WhyMe() {
           ref={headerRef}
           className={`${styles.header} fade-up ${headerVisible ? 'visible' : ''}`}
         >
-          <span className={styles.label}>Value</span>
+          <span className={styles.label}>{t.whyMe.label}</span>
           <h2 className={styles.title}>{t.whyMe.title}</h2>
           <p className={styles.subtitle}>{t.whyMe.subtitle}</p>
         </div>

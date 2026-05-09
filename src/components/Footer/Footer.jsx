@@ -35,10 +35,9 @@ export default function Footer() {
 
           {/* Links */}
           <nav className={styles.footerNav} aria-label="Footer navigation">
-            <span>Services</span>
-            <span>Logistics</span>
-            <span>Projects</span>
-            <span>Contact</span>
+            {t.footer.nav.map(item => (
+              <span key={item}>{item}</span>
+            ))}
           </nav>
 
           {/* Social + built with */}

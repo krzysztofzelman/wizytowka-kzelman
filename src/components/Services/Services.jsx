@@ -14,7 +14,7 @@ export default function Services() {
           ref={headerRef}
           className={`${styles.header} fade-up ${headerVisible ? 'visible' : ''}`}
         >
-          <span className={styles.sectionLabel}>Freelancer</span>
+          <span className={styles.sectionLabel}>{t.services.label}</span>
           <h2 className={styles.title}>{t.services.title}</h2>
           <p className={styles.subtitle}>{t.services.subtitle}</p>
         </div>

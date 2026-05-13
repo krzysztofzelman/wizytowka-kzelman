@@ -10,7 +10,8 @@ export const translations = {
       contact: 'Kontakt',
     },
     hero: {
-      tagline: 'Freelancer nowej generacji — tworzę strony i apki szybciej dzięki AI',
+      tagline: 'Tworzę strony i aplikacje — szybciej dzięki AI',
+      motto: '10 lat na magazynie. Teraz koduję. Wiem, co jest potrzebne.',
       cta1: 'Zobacz projekty',
       cta2: 'Skontaktuj się',
       available: 'Dostępny na zlecenia',
@@ -19,7 +20,7 @@ export const translations = {
     services: {
       label: 'Freelancer',
       title: 'Moje usługi',
-      subtitle: 'Kompleksowe rozwiązania webowe dopasowane do Twojego biznesu',
+      subtitle: 'Strony i aplikacje dopasowane do Twoich potrzeb',
       items: [
         {
           title: 'Strony WWW',
@@ -64,29 +65,29 @@ export const translations = {
       ],
     },
     logistics: {
-      title: 'Specjalizacja logistyczna',
-      subtitle: '10 lat jako operator wózka widłowego — znam logistykę od podszewki',
-      desc: 'Nie jestem tylko programistą, który słyszał o logistyce. Przez 10 lat pracowałem w magazynach, rozumiałem procesy WMS od środka, widziałem gdzie systemy zawodzą. Tworzę oprogramowanie, które naprawdę działa w terenie.',
+      title: 'Rozumiem magazyn od środka',
+      subtitle: '10 lat na magazynie — znam logistykę od podszewki',
+      desc: 'Przez 10 lat pracowałem na magazynie. W codziennej pracy widziałem, co w systemach magazynowych działa, a co irytuje. Dziś, gdy programuję, tworzę rozwiązania z perspektywy osoby, która sama z nich korzysta – proste, intuicyjne i oszczędzające czas.',
       badge: '10 lat w logistyce',
       subsections: [
         {
-          title: 'Systemy WMS',
-          desc: 'Przyjęcia, wydania, lokalizacje, stany magazynowe i inwentaryzacje.',
+          title: 'Prosty panel magazynowy',
+          desc: 'Przyjęcia i wydania, lokalizacje, stany – podstawowe funkcje, które ułatwiają pracę w małej firmie.',
           icon: '🏭',
         },
         {
-          title: 'Śledzenie floty',
-          desc: 'Real-time tracking pojazdów, optymalizacja tras i historia przejazdów.',
+          title: 'Podgląd lokalizacji pojazdów (opcjonalnie)',
+          desc: 'Proste narzędzie do sprawdzania, gdzie są pojazdy – bez zbędnych bajerów.',
           icon: '🚛',
         },
         {
-          title: 'Raporty i KPI',
-          desc: 'Dashboardy z kluczowymi wskaźnikami, filtrowaniem i eksportem do Excel/PDF.',
+          title: 'Zestawienia do Excel / PDF',
+          desc: 'Raporty stanów magazynowych i obrotów – dane, które faktycznie są potrzebne.',
           icon: '📊',
         },
         {
-          title: 'Harmonogramy',
-          desc: 'Planowanie zmian, dyspozycja zasobów, urlopy i powiadomienia SMS/email.',
+          title: 'Plan zmian z powiadomieniami',
+          desc: 'Prosty harmonogram dla zespołu z powiadomieniami SMS lub email.',
           icon: '📋',
         },
       ],
@@ -99,7 +100,7 @@ export const translations = {
       items: [
         {
           title: 'Smart Mysłowice',
-          desc: 'Aplikacja miejska dla mieszkańców Mysłowic. Interaktywna mapa jakości powietrza w czasie rzeczywistym (Airly API), system zgłaszania usterek infrastruktury z geolokalizacją i panelem dla urzędników.',
+          desc: 'Mapa jakości powietrza i prosty system zgłoszeń dla miasta – zrobiłem to, żeby pomóc mieszkańcom, nie jako korporacyjny produkt.',
           tech: ['React', 'Node.js', 'Leaflet', 'Airly API'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice-v2.vercel.app/',
@@ -107,7 +108,7 @@ export const translations = {
         },
         {
           title: 'AutoFlex',
-          desc: 'Platforma wynajmu i zarządzania flotą pojazdów. Rezerwacje online, płatności Stripe, panel administracyjny z KPI, automatyczne powiadomienia email i push.',
+          desc: 'Prosta platforma do wynajmu pojazdów. Rezerwacje online, płatności i panel do zarządzania – tyle, ile trzeba.',
           tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/auto-flex',
           live: 'https://auto-flex-woad.vercel.app/',
@@ -115,7 +116,7 @@ export const translations = {
         },
         {
           title: 'Restauracja – Zamów Online',
-          desc: 'Nowoczesna aplikacja webowa do składania zamówień w restauracji z systemem ról (klient, kuchnia, admin, kurier), płatnościami Stripe, panelami zarządzania menu, magazynem i dostawami. Przeznaczona dla restauracji, które chcą uruchomić cyfrowy system zamówień i zarządzania.',
+          desc: 'Aplikacja do składania zamówień w restauracji – klient wybiera, kuchnia widzi, admin zarządza. Prosty system dla małej gastronomii.',
           tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Bootstrap', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
           live: 'https://restaurant-clean-omega.vercel.app',
@@ -123,7 +124,7 @@ export const translations = {
         },
         {
           title: 'Kawa i Ciasteczko',
-          desc: 'Strona internetowa dla kawiarni — menu z cenami, oferta, formularz kontaktowy, zamówienie online i integracja z bazą danych. Zbudowana w Next.js + Supabase.',
+          desc: 'Strona internetowa dla kawiarni – menu, oferta, formularz kontaktowy i zamówienie online.',
           tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
           github: 'https://github.com/krzysztofzelman/kawiarnia',
           live: 'https://kawiarnia-swart.vercel.app/',
@@ -134,26 +135,26 @@ export const translations = {
     whyMe: {
       label: 'Wartość',
       title: 'Dlaczego ja?',
-      subtitle: 'Co wyróżnia moją pracę spośród tysięcy freelancerów',
+      subtitle: 'Co możesz zyskać, pracując ze mną',
       items: [
         {
           title: '2× szybsze wdrożenie',
-          desc: 'Dzięki AI w procesie developmentu i sprawdzonemu workflow projekty realizuję w połowie standardowego czasu — bez utraty jakości.',
+          desc: 'Używam AI (Qwen, Claude) – dzięki temu potrafię zrobić stronę lub prostą apkę w 2–3 dni, a nie 2–3 tygodnie.',
           icon: '⚡',
         },
         {
           title: 'Świeże podejście',
-          desc: 'Śledzę ekosystem na bieżąco — React 19, Supabase, edge functions, AI-native tools. Twoja strona nie zestarzeję się za rok.',
+          desc: 'Uczę się na bieżąco – React 19, Supabase, narzędzia AI. Twoja strona nie będzie wyglądać przestarzale za rok.',
           icon: '✨',
         },
         {
-          title: 'Znam logistykę od środka',
-          desc: '10 lat w magazynie to wiedza, której nie wyczytasz z dokumentacji. Tworzę systemy, które faktycznie odpowiadają na realne problemy operacyjne.',
+          title: 'Znam magazyn od kuchni',
+          desc: 'Pracowałem na magazynie przez 10 lat – wiem, czego brakuje w systemach, bo sam na tym traciłem czas. Nie sprzedaję "rozwiązań klas enterprise" – rozwiązuję konkretne problemy z perspektywy użytkownika.',
           icon: '🏭',
         },
         {
           title: 'Dwujęzyczny (PL/EN)',
-          desc: 'Dokumentacja, komentarze, komunikacja — zarówno po polsku, jak i po angielsku. Współpraca z zagranicznymi klientami bez bariery.',
+          desc: 'Dokumentacja, komentarze, komunikacja – po polsku i po angielsku. Współpraca z zagranicznymi klientami bez bariery.',
           icon: '🌍',
         },
       ],
@@ -172,7 +173,7 @@ export const translations = {
       available: 'Dostępny od zaraz',
     },
     footer: {
-      tagline: 'Tworzę cyfrowe produkty, które działają.',
+      tagline: 'Pomagam ludziom i firmom w internecie.',
       rights: 'Wszelkie prawa zastrzeżone',
       builtWith: 'Zbudowane z',
       nav: ['Usługi', 'Logistyka', 'Projekty', 'Kontakt'],
@@ -188,7 +189,8 @@ export const translations = {
       contact: 'Contact',
     },
     hero: {
-      tagline: 'Next-gen freelancer — I build websites and apps faster with AI',
+      tagline: 'I build websites and apps — faster with AI',
+      motto: '10 years in a warehouse. Now I code. I know what\'s needed.',
       cta1: 'View projects',
       cta2: 'Get in touch',
       available: 'Available for projects',
@@ -197,7 +199,7 @@ export const translations = {
     services: {
       label: 'Freelancer',
       title: 'My services',
-      subtitle: 'Comprehensive web solutions tailored to your business needs',
+      subtitle: 'Websites and apps tailored to what you actually need',
       items: [
         {
           title: 'Websites',
@@ -242,29 +244,29 @@ export const translations = {
       ],
     },
     logistics: {
-      title: 'Logistics specialization',
-      subtitle: '10 years as a forklift operator — I know logistics from the inside',
-      desc: "I'm not just a developer who heard about logistics. I spent 10 years working in warehouses, understanding WMS processes first-hand, seeing where systems fail. I build software that actually works on the floor.",
+      title: 'I understand the warehouse from the inside',
+      subtitle: '10 years in a warehouse — I know logistics from the ground up',
+      desc: "I spent 10 years working in a warehouse. Day to day, I saw what works in warehouse systems and what gets on your nerves. Now that I code, I build tools from the perspective of someone who's actually used them — simple, intuitive, and time-saving.",
       badge: '10 years in logistics',
       subsections: [
         {
-          title: 'WMS Systems',
-          desc: 'Goods receipt, dispatch, locations, stock levels and inventory management.',
+          title: 'Simple warehouse panel',
+          desc: 'Receipts, dispatches, locations, stock levels – basic features that help a small business run smoothly.',
           icon: '🏭',
         },
         {
-          title: 'Fleet tracking',
-          desc: 'Real-time vehicle tracking, route optimization and full trip history.',
+          title: 'Vehicle location view (optional)',
+          desc: 'A simple tool to check where your vehicles are — no unnecessary bells and whistles.',
           icon: '🚛',
         },
         {
-          title: 'Reports & KPIs',
-          desc: 'Dashboards with key performance indicators, filtering and Excel/PDF export.',
+          title: 'Excel / PDF reports',
+          desc: 'Stock level and turnover reports – the data you actually need, not more dashboards.',
           icon: '📊',
         },
         {
-          title: 'Schedules',
-          desc: 'Shift planning, resource allocation, leave management and SMS/email alerts.',
+          title: 'Shift planner with notifications',
+          desc: 'A straightforward schedule for your team with SMS or email alerts.',
           icon: '📋',
         },
       ],
@@ -277,7 +279,7 @@ export const translations = {
       items: [
         {
           title: 'Smart Mysłowice',
-          desc: 'City app for Mysłowice residents. Real-time air quality map (Airly API), infrastructure issue reporting with geolocation and an official admin panel.',
+          desc: 'An air quality map and a simple issue reporting system for the city — built to help residents, not as a corporate product.',
           tech: ['React', 'Node.js', 'Leaflet', 'Airly API'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice-v2.vercel.app/',
@@ -285,7 +287,7 @@ export const translations = {
         },
         {
           title: 'AutoFlex',
-          desc: 'Vehicle fleet rental and management platform. Online booking, Stripe payments, admin KPI dashboard, automated email and push notifications.',
+          desc: 'A straightforward vehicle rental platform. Online bookings, payments, and a simple management panel — just what you need.',
           tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/auto-flex',
           live: 'https://auto-flex-woad.vercel.app/',
@@ -293,7 +295,7 @@ export const translations = {
         },
         {
           title: 'Restaurant – Order Online',
-          desc: 'A modern web application for placing restaurant orders with a role-based system (customer, kitchen, admin, courier), Stripe payments, and dedicated dashboards for menu management, warehouse inventory, and deliveries. Built for restaurants looking to implement a digital ordering and management system.',
+          desc: 'A restaurant ordering app – customers pick, the kitchen sees, the admin manages. A simple system for small food businesses.',
           tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Bootstrap', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
           live: 'https://restaurant-clean-omega.vercel.app',
@@ -301,7 +303,7 @@ export const translations = {
         },
         {
           title: 'Kawa i Ciasteczko',
-          desc: 'A café website with menu with prices, offers, contact form, online ordering and a database backend. Built with Next.js + Supabase.',
+          desc: 'A café website – menu, offers, contact form and online ordering. Nothing fancy, just works.',
           tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
           github: 'https://github.com/krzysztofzelman/kawiarnia',
           live: 'https://kawiarnia-swart.vercel.app/',
@@ -312,21 +314,21 @@ export const translations = {
     whyMe: {
       label: 'Value',
       title: 'Why me?',
-      subtitle: 'What sets my work apart from thousands of freelancers',
+      subtitle: 'What you get when we work together',
       items: [
         {
           title: '2× faster delivery',
-          desc: 'Using AI in my development workflow and battle-tested processes, I deliver projects in half the usual time — without sacrificing quality.',
+          desc: 'I use AI tools (Qwen, Claude) to build a website or a simple app in 2–3 days instead of 2–3 weeks.',
           icon: '⚡',
         },
         {
           title: 'Fresh approach',
-          desc: 'I follow the ecosystem daily — React 19, Supabase, edge functions, AI-native tools. Your product won\'t feel outdated in a year.',
+          desc: "I keep learning — React 19, Supabase, AI-native tools. Your site won't feel outdated in a year.",
           icon: '✨',
         },
         {
-          title: 'Logistics insider',
-          desc: '10 years on the warehouse floor is knowledge you can\'t get from docs. I build systems that solve real operational problems.',
+          title: 'Warehouse to code',
+          desc: 'I worked in a warehouse for 10 years. I know what\'s missing in warehouse systems because I lost time on it myself. I don\'t sell "enterprise solutions" — I solve real problems from a user\'s perspective.',
           icon: '🏭',
         },
         {
@@ -350,7 +352,7 @@ export const translations = {
       available: 'Available now',
     },
     footer: {
-      tagline: 'Building digital products that work.',
+      tagline: 'Helping people and businesses on the web.',
       rights: 'All rights reserved',
       builtWith: 'Built with',
       nav: ['Services', 'Logistics', 'Projects', 'Contact'],

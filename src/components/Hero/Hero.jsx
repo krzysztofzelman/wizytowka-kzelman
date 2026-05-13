@@ -37,6 +37,8 @@ export default function Hero() {
 
           <p className={styles.tagline}>{t.hero.tagline}</p>
 
+          <p className={styles.motto}>{t.hero.motto}</p>
+
           <div className={styles.badges}>
             {t.hero.badges.map(b => (
               <span key={b} className={styles.badge}>{b}</span>

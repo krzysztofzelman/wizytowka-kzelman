@@ -148,7 +148,18 @@
   color: var(--text-muted);
   line-height: 1.6;
   max-width: 520px;
+  margin-bottom: 0.75rem;
+}
+
+.motto {
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: var(--green-light);
+  line-height: 1.5;
   margin-bottom: 2rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(16, 185, 129, 0.4);
+  font-style: italic;
+  opacity: 0.85;
 }
 
 .badges {
@@ -319,6 +330,7 @@
   .textSide { max-width: 100%; }
   .availablePill { margin: 0 auto 1.5rem; }
   .tagline { margin-left: auto; margin-right: auto; }
+  .motto { margin-left: auto; margin-right: auto; max-width: 400px; }
   .badges { justify-content: center; }
   .ctas { justify-content: center; }
   .avatarWrap { width: 170px; height: 170px; }

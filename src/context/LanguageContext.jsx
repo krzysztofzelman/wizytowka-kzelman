@@ -101,7 +101,7 @@ export const translations = {
         {
           title: 'Smart Mysłowice',
           desc: 'Mapa jakości powietrza i prosty system zgłoszeń dla miasta – zrobiłem to, żeby pomóc mieszkańcom, nie jako korporacyjny produkt.',
-          tech: ['React', 'Node.js', 'Leaflet', 'Airly API'],
+          tech: ['React', 'TypeScript', 'Node.js', 'Leaflet'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice-v2.vercel.app/',
           accent: '#10b981',
@@ -109,7 +109,7 @@ export const translations = {
         {
           title: 'AutoFlex',
           desc: 'Prosta platforma do wynajmu pojazdów. Rezerwacje online, płatności i panel do zarządzania – tyle, ile trzeba.',
-          tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'Stripe'],
+          tech: ['Next.js', 'Supabase', 'Tailwind CSS'],
           github: 'https://github.com/krzysztofzelman/auto-flex',
           live: 'https://auto-flex-woad.vercel.app/',
           accent: '#7c3aed',
@@ -144,7 +144,7 @@ export const translations = {
         },
         {
           title: 'Świeże podejście',
-          desc: 'Uczę się na bieżąco – React 19, Supabase, narzędzia AI. Twoja strona nie będzie wyglądać przestarzale za rok.',
+          desc: 'Uczę się na bieżąco – React 19, TypeScript, Supabase. Twoja strona nie będzie wyglądać przestarzale za rok.',
           icon: '✨',
         },
         {
@@ -280,7 +280,7 @@ export const translations = {
         {
           title: 'Smart Mysłowice',
           desc: 'An air quality map and a simple issue reporting system for the city — built to help residents, not as a corporate product.',
-          tech: ['React', 'Node.js', 'Leaflet', 'Airly API'],
+          tech: ['React', 'TypeScript', 'Node.js', 'Leaflet'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice-v2.vercel.app/',
           accent: '#10b981',
@@ -288,7 +288,7 @@ export const translations = {
         {
           title: 'AutoFlex',
           desc: 'A straightforward vehicle rental platform. Online bookings, payments, and a simple management panel — just what you need.',
-          tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'Stripe'],
+          tech: ['Next.js', 'Supabase', 'Tailwind CSS'],
           github: 'https://github.com/krzysztofzelman/auto-flex',
           live: 'https://auto-flex-woad.vercel.app/',
           accent: '#7c3aed',
@@ -323,7 +323,7 @@ export const translations = {
         },
         {
           title: 'Fresh approach',
-          desc: "I keep learning — React 19, Supabase, AI-native tools. Your site won't feel outdated in a year.",
+          desc: "I keep learning — React 19, TypeScript, Supabase. Your site won't feel outdated in a year.",
           icon: '✨',
         },
         {

@@ -107,14 +107,6 @@ export const translations = {
           accent: '#10b981',
         },
         {
-          title: 'AutoFlex',
-          desc: 'Prosta platforma do wynajmu pojazdów. Rezerwacje online, płatności i panel do zarządzania – tyle, ile trzeba.',
-          tech: ['Next.js', 'Supabase', 'Tailwind CSS'],
-          github: 'https://github.com/krzysztofzelman/auto-flex',
-          live: 'https://auto-flex-woad.vercel.app/',
-          accent: '#7c3aed',
-        },
-        {
           title: 'Restauracja – Zamów Online',
           desc: 'Aplikacja do składania zamówień w restauracji – klient wybiera, kuchnia widzi, admin zarządza. Prosty system dla małej gastronomii.',
           tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Bootstrap', 'Stripe'],
@@ -284,14 +276,6 @@ export const translations = {
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice-v2.vercel.app/',
           accent: '#10b981',
-        },
-        {
-          title: 'AutoFlex',
-          desc: 'A straightforward vehicle rental platform. Online bookings, payments, and a simple management panel — just what you need.',
-          tech: ['Next.js', 'Supabase', 'Tailwind CSS'],
-          github: 'https://github.com/krzysztofzelman/auto-flex',
-          live: 'https://auto-flex-woad.vercel.app/',
-          accent: '#7c3aed',
         },
         {
           title: 'Restaurant – Order Online',

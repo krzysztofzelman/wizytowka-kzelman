@@ -20,6 +20,18 @@ function ExternalLinkIcon() {
   );
 }
 
+function ScissorsIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <line x1="20" y1="4" x2="8.12" y2="15.88" />
+      <line x1="14.47" y1="14.48" x2="20" y2="20" />
+      <line x1="8.12" y1="8.12" x2="12" y2="12" />
+    </svg>
+  );
+}
+
 export default function Projects() {
   const { t } = useLanguage();
   const [headerRef, headerVisible] = useScrollAnimation();
@@ -56,6 +68,11 @@ export default function Projects() {
                     className={styles.projectDot}
                     style={{ background: project.accent, boxShadow: `0 0 12px ${project.accent}60` }}
                   />
+                  {project.title === 'Salon Fryzjerski' && (
+                    <span className={styles.cardIcon} style={{ color: project.accent }}>
+                      <ScissorsIcon />
+                    </span>
+                  )}
                   <h3 className={styles.cardTitle}>{project.title}</h3>
                 </div>
 

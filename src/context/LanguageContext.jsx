@@ -115,6 +115,14 @@ export const translations = {
           accent: '#f59e0b',
         },
         {
+          title: 'Salon Fryzjerski',
+          desc: 'Profesjonalna i elegancka strona dla salonu fryzjerskiego z integracją systemu rezerwacji Booksy. Zbudowana w oparciu o Next.js z naciskiem na szybkość i optymalizację SEO.',
+          tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Booksy API'],
+          github: 'https://github.com/krzysztofzelman/salon-fryzjerski',
+          live: 'https://salon-fryzjerski-eta.vercel.app/',
+          accent: '#a855f7',
+        },
+        {
           title: 'Kawa i Ciasteczko',
           desc: 'Strona internetowa dla kawiarni – menu, oferta, formularz kontaktowy i zamówienie online.',
           tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
@@ -284,6 +292,14 @@ export const translations = {
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
           live: 'https://restaurant-clean-omega.vercel.app',
           accent: '#f59e0b',
+        },
+        {
+          title: 'Salon Fryzjerski',
+          desc: 'Professional and elegant website for a hair salon with Booksy booking system integration. Built with Next.js focusing on speed and SEO optimization.',
+          tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Booksy API'],
+          github: 'https://github.com/krzysztofzelman/salon-fryzjerski',
+          live: 'https://salon-fryzjerski-eta.vercel.app/',
+          accent: '#a855f7',
         },
         {
           title: 'Kawa i Ciasteczko',

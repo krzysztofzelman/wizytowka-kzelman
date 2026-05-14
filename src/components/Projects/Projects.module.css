@@ -79,6 +79,12 @@
   border-radius: 50%;
   flex-shrink: 0;
 }
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 .cardTitle {
   font-family: var(--font-display);
   font-size: 1.4rem;

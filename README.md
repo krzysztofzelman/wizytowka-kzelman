@@ -1,4 +1,3 @@
-
 <p align="center">
   <img src="public/favicon.svg" alt="KZ logo" width="80" />
 </p>
@@ -22,7 +21,7 @@
 
 <p align="center">
   <b>Nowoczesna, responsywna strona wizytówkowa / portfolio</b><br />
-  zbudowana w React 19 z dwujęzycznym interfejsem PL/EN.
+  zbudowana w React 19 z dwujęzycznym interfejsem PL/EN i chatbotem AI.
 </p>
 
 <p align="center">
@@ -38,9 +37,14 @@
 - [Demo](#-demo)
 - [Funkcjonalności](#-funkcjonalności)
 - [Stack technologiczny](#-stack-technologiczny)
+- [Wymagania](#-wymagania)
 - [Instalacja i uruchomienie](#-instalacja-i-uruchomienie)
+- [Konfiguracja](#-konfiguracja)
+- [API](#-api)
 - [Struktura projektu](#-struktura-projektu)
 - [Deployment](#-deployment)
+- [Najczęstsze problemy](#-najczęstsze-problemy)
+- [Rozwój projektu](#-rozwój-projektu)
 - [Licencja](#-licencja)
 - [Autor](#-autor)
 
@@ -59,6 +63,15 @@ Aplikacja dostępna online pod adresem:
 ---
 
 ## ✨ Funkcjonalności
+
+### 🤖 Chatbot AI z DeepSeek
+
+Interaktywny chatbot oparty na modelu **DeepSeek**, który odpowiada na pytania dotyczące usług, technologii i dostępności Krzysztofa. Działa jako Vercel Serverless Function (`/api/chat`).
+
+- Limit **5 wiadomości** na sesję (zapobiega nadużyciom)
+- Stan rozmowy przechowywany w `localStorage`
+- Responsywne okno czatu z przyciskiem do otwierania/zamykania
+- Automatyczne czyszczenie po przekroczeniu limitu
 
 ### 🗂️ Prezentacja portfolio projektów
 
@@ -81,7 +94,7 @@ Osiem kategorii usług freelancerskich:
 - 🛒 **Sklepy online** – e-commerce z integracją Stripe / PayU, panelem produktów i pełnym flow zakupowym
 - 🚀 **Landing page** – konwertujące strony lądowania z wyraźnym CTA
 - ⚡ **Aplikacje webowe** – pełnostackowe aplikacje React + Node.js z bazą danych i API
-- 🤖 **Integracje AI** – chatboty, automatyzacje i funkcje oparte na GPT / Claude
+- 🤖 **Integracje AI** – chatboty, automatyzacje i funkcje oparte na GPT / Claude / DeepSeek
 - 🎨 **Redesign stron** – modernizacja starych serwisów z poprawą UX i wydajności
 - 📅 **Systemy rezerwacji** – kalendarze online, rezerwacje i harmonogramy z powiadomieniami
 - 🏙️ **Aplikacje miejskie** – mapy interaktywne, raporty i dane publiczne dla samorządów
@@ -143,14 +156,21 @@ Strona zoptymalizowana pod kątem wyszukiwarek:
 | 🔥 | **Vite** | Bundler i narzędzie deweloperskie (HMR, build) | ^8.0.10 |
 | 📜 | **JavaScript (JSX)** | Język programowania – gotowy do przejścia na TypeScript | — |
 | 🎨 | **CSS Modules** | Stylowanie komponentów – scoped CSS bez konfliktów | — |
+| 🤖 | **DeepSeek API** | Silnik chatbota AI – serverless function na Vercel | — |
 | ✅ | **ESLint** | Linter kodu – utrzymanie jakości i spójności | ^10.2.1 |
 | ▲ | **Vercel** | Hosting i deployment – automatyczne budowanie z GitHub | — |
 
 ---
 
-## 💻 Instalacja i uruchomienie
+## 📋 Wymagania
 
-Wymagania: **Node.js 18+** i **npm**.
+- **Node.js 18+** (zalecane 20 LTS)
+- **npm** (lub inny menedżer pakietów)
+- Klucz API **DeepSeek** (do chatbota – opcjonalne przy budowie frontendu bez API)
+
+---
+
+## 💻 Instalacja i uruchomienie
 
 ```bash
 # 1. Sklonuj repozytorium
@@ -160,13 +180,17 @@ cd wizytowka-kzelman
 # 2. Zainstaluj zależności
 npm install
 
-# 3. Uruchom serwer deweloperski (http://localhost:5173)
+# 3. (opcjonalnie) Skonfiguruj zmienne środowiskowe dla chatbota
+#    Skopiuj .env.example -> .env i wpisz klucz DeepSeek
+copy .env.example .env
+
+# 4. Uruchom serwer deweloperski (http://localhost:5173)
 npm run dev
 
-# 4. Zbuduj wersję produkcyjną
+# 5. Zbuduj wersję produkcyjną
 npm run build
 
-# 5. Podgląd zbudowanej wersji lokalnie
+# 6. Podgląd zbudowanej wersji lokalnie
 npm run preview
 ```
 
@@ -177,12 +201,122 @@ Dodatkowe komendy:
 npm run lint
 ```
 
+### Uruchomienie z API lokalnie
+
+Chatbot wymaga serwera API. Na produkcji działa jako Vercel Serverless Function. Lokalnie użyj `vercel dev`:
+
+```bash
+# Zainstaluj Vercel CLI (jeśli nie masz)
+npm install -g vercel
+
+# Uruchom serwer deweloperski + API (port 5173 frontend, port 3000 API)
+npx vercel dev
+```
+
+Konfiguracja proxy w `vite.config.js` automatycznie przekierowuje żądania `/api/*` na lokalny serwer Vercel.
+
+---
+
+## 🔧 Konfiguracja
+
+Projekt używa zmiennych środowiskowych wyłącznie dla chatbota AI.
+
+### Zmienne środowiskowe
+
+| Zmienna | Wymagana | Opis |
+|---|---|---|
+| `DEEPSEEK_API_KEY` | Tak (dla chatbota) | Klucz API z [platform.deepseek.com](https://platform.deepseek.com/api_keys) |
+
+### Plik .env
+
+Utwórz plik `.env` w katalogu głównym projektu na podstawie `.env.example`:
+
+```bash
+copy .env.example .env
+```
+
+Następnie edytuj `.env` i wpisz swój klucz DeepSeek:
+
+```env
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+> **Uwaga:** Chatbot działa tylko wtedy, gdy zmienna `DEEPSEEK_API_KEY` jest ustawiona. Jeśli nie zamierzasz używać chatbota, frontend i tak działa – API zwróci wtedy komunikat o błędzie konfiguracji.
+
+### Konfiguracja Vite
+
+Plik `vite.config.js` zawiera regułę proxy dla środowiska deweloperskiego:
+
+```js
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000',
+      changeOrigin: true,
+    },
+  },
+}
+```
+
+Dzięki temu podczas lokalnego rozwoju żądania `/api/chat` są przekierowywane do `vercel dev` (port 3000), a frontend nie musi znać rzeczywistego adresu API.
+
+---
+
+## 📡 API
+
+### `POST /api/chat`
+
+Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function.
+
+**Request body:**
+
+```json
+{
+  "message": "Czym się zajmujesz?",
+  "history": [
+    { "role": "user", "content": "Cześć" },
+    { "role": "assistant", "content": "Witaj! Jestem asystentem Krzysztofa..." }
+  ],
+  "count": 3
+}
+```
+
+| Pole | Typ | Opis |
+|---|---|---|
+| `message` | string | Treść wiadomości użytkownika (max 2000 znaków) |
+| `history` | array | Historia rozmowy (opcjonalnie) |
+| `count` | number | Licznik wysłanych wiadomości w sesji (opcjonalnie) |
+
+**Success response (200):**
+
+```json
+{
+  "reply": "Specjalizuję się w tworzeniu nowoczesnych stron internetowych...",
+  "remaining": 2,
+  "limitReached": false
+}
+```
+
+**Error responses:**
+
+| Kod | Scenariusz |
+|---|---|
+| `400` | Brak wiadomości lub przekroczona długość |
+| `405` | Metoda inna niż POST |
+| `429` | Limit 5 wiadomości na sesję wyczerpany |
+| `500` | Brak klucza API DeepSeek |
+| `504` | Timeout odpowiedzi z DeepSeek (15s) |
+
+**Rate limiting:** Maksymalnie **5 wiadomości** na sesję (liczone po stronie serwera).
+
 ---
 
 ## 📁 Struktura projektu
 
 ```
 wizytowka-kzelman/
+├── api/                            # Vercel Serverless Functions
+│   └── chat.js                     # Endpoint chatbota AI (DeepSeek)
 ├── public/                         # Pliki statyczne
 │   ├── favicon.svg                 # Ikona karty (monogram KZ)
 │   ├── icons.svg                   # Sprite SVG z ikonami społecznościowymi
@@ -190,6 +324,7 @@ wizytowka-kzelman/
 │   └── sitemap.xml                 # Mapa strony dla SEO
 ├── src/
 │   ├── components/                 # Komponenty React podzielone na sekcje
+│   │   ├── ChatBot/                # Widget czatu AI (ChatBot.jsx + moduł CSS)
 │   │   ├── Navbar/                 # Nawigacja z językiem PL/EN i menu mobilnym
 │   │   ├── Hero/                   # Sekcja powitalna z animacjami
 │   │   ├── Services/               # Lista 8 usług w gridzie
@@ -202,14 +337,19 @@ wizytowka-kzelman/
 │   │   └── LanguageContext.jsx     # Tłumaczenia PL/EN i kontekst językowy
 │   ├── hooks/
 │   │   └── useScrollAnimation.js   # Hook do animacji scrollowych (IntersectionObserver)
+│   ├── types/
+│   │   └── chat.js                 # JSDoc typy dla chatbota (ChatMessage, ChatState itp.)
 │   ├── assets/                     # Zasoby graficzne
 │   ├── App.jsx                     # Główny komponent – łączy wszystkie sekcje
 │   ├── App.css                     # Globalne nadpisania stylów
 │   ├── index.css                   # Design system: zmienne CSS, reset, animacje
 │   └── main.jsx                    # Punkt wejścia aplikacji
+├── .env.example                    # Przykładowy plik zmiennych środowiskowych
+├── .gitignore                      # Ignorowane pliki (node_modules, dist, .env)
 ├── index.html                      # Szablon HTML z meta tagami i czcionkami
 ├── package.json                    # Zależności i skrypty
-├── vite.config.js                  # Konfiguracja Vite
+├── vite.config.js                  # Konfiguracja Vite (wtyczki, proxy API)
+├── vercel.json                     # Konfiguracja deploymentu na Vercel
 └── eslint.config.js                # Konfiguracja ESLinta (flat config)
 ```
 
@@ -222,7 +362,12 @@ wizytowka-kzelman/
 | `src/index.css` | Design system – zmienne CSS (kolory, fonty, cienie), reset, klasy animacji |
 | `src/context/LanguageContext.jsx` | Kompletne tłumaczenia PL/EN i Context Provider |
 | `src/hooks/useScrollAnimation.js` | Hook do płynnych animacji przy scrollowaniu |
+| `src/components/ChatBot/ChatBot.jsx` | Widget czatu AI z obsługą API i localStorage |
+| `src/types/chat.js` | JSDoc definicje typów dla systemu chatbota |
+| `api/chat.js` | Vercel Serverless Function – proxy do DeepSeek API |
 | `index.html` | Meta tagi, OG, JSON-LD, Google Fonts (Inter + Space Grotesk) |
+| `vite.config.js` | Konfiguracja Vite z proxy API dla `vercel dev` |
+| `vercel.json` | Reguły przepisywania URL-i dla SPA i API |
 
 ---
 
@@ -236,15 +381,79 @@ Projekt jest skonfigurowany pod deployment na **Vercel**.
 2. Kliknij **Add New → Project**.
 3. Zaimportuj repozytorium `krzysztofzelman/wizytowka-kzelman`.
 4. Vite wykryje konfigurację automatycznie – nic nie musisz zmieniać.
-5. Kliknij **Deploy**.
+5. W zakładce **Environment Variables** dodaj `DEEPSEEK_API_KEY` z kluczem z platform.deepseek.com.
+6. Kliknij **Deploy**.
 
-### Zmienne środowiskowe
+### Zmienne środowiskowe na Vercel
 
-Projekt **nie wymaga** żadnych zmiennych środowiskowych. Wszystkie dane (teksty, tłumaczenia, linki) są na sztywno w kodzie.
+| Zmienna | Wartość |
+|---|---|
+| `DEEPSEEK_API_KEY` | `sk-...` (twój klucz z DeepSeek) |
+
+Bez ustawionej zmiennej chatbot nie będzie działał, ale reszta strony działa bez zmian.
 
 ### Automatyczne redeploye
 
 Po każdym pushu na główną gałąź GitHub Vercel automatycznie przebudowuje i wdraża stronę.
+
+---
+
+## ❓ Najczęstsze problemy
+
+### Chatbot nie odpowiada / błąd "Przepraszam, wystąpił błąd konfiguracji"
+
+**Przyczyna:** Brak zmiennej `DEEPSEEK_API_KEY` w środowisku.
+
+**Rozwiązanie (lokalnie):** Skopiuj `.env.example` → `.env` i wpisz poprawny klucz DeepSeek.
+
+**Rozwiązanie (Vercel):** Dodaj `DEEPSEEK_API_KEY` w Dashboard → Project → Settings → Environment Variables.
+
+### `vercel dev` nie działa
+
+**Przyczyna:** Brak Vercel CLI lub niezalogowanie.
+
+**Rozwiązanie:**
+```bash
+npm install -g vercel
+vercel login
+npx vercel dev
+```
+
+### Proxy API nie działa lokalnie
+
+**Przyczyna:** `vercel dev` nie jest uruchomiony na porcie 3000.
+
+**Rozwiązanie:** Uruchom `npx vercel dev` w osobnym terminalu – frontend na porcie 5173, API na 3000. Vite proxy przekierowuje `/api/*` na port 3000.
+
+### Linter zwraca błędy
+
+**Przyczyna:** Niezgodność z konfiguracją ESLint flat config.
+
+**Rozwiązanie:**
+```bash
+npm run lint
+# lub autofix
+npx eslint . --fix
+```
+
+---
+
+## 🔄 Rozwój projektu
+
+Projekt jest w trakcie ciągłego rozwoju. Planowane ulepszenia:
+
+- Przejście na TypeScript
+- Dodanie formularza kontaktowego (obecnie `mailto:`)
+- Własna domena
+- Tryb jasny / ciemny do wyboru
+- Więcej projektów w portfolio
+- Rozszerzenie funkcji chatbota (kontekst, załączniki)
+
+**Masz pomysł na ulepszenie? Znalazłeś błąd?**
+<br />
+Napisz na <krzysztof.zelman.92@gmail.com> lub otwórz Issue na GitHubie.
+<br />
+Zapraszam do współpracy! 🤝
 
 ---
 
@@ -280,21 +489,3 @@ Freelancer React / Node.js / AI
 - 🌐 [wizytowka-kzelman.vercel.app](https://wizytowka-kzelman.vercel.app/)
 - 🐙 [github.com/krzysztofzelman](https://github.com/krzysztofzelman)
 - 💼 [LinkedIn](https://www.linkedin.com/in/krzysztof-zelman/)
-
----
-
-## 🔄 Rozwój projektu
-
-Projekt jest w trakcie ciągłego rozwoju. Planowane ulepszenia:
-
-- Przejście na TypeScript
-- Dodanie formularza kontaktowego (obecnie `mailto:`)
-- Własna domena
-- Tryb jasny / ciemny do wyboru
-- Więcej projektów w portfolio
-
-**Masz pomysł na ulepszenie? Znalazłeś błąd?**
-<br />
-Napisz na <krzysztof.zelman.92@gmail.com> lub otwórz Issue na GitHubie.
-<br />
-Zapraszam do współpracy! 🤝

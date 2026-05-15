@@ -8,6 +8,7 @@ import Projects from './components/Projects/Projects';
 import WhyMe from './components/WhyMe/WhyMe';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import ChatBot from './components/ChatBot/ChatBot';
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatBot />
     </LanguageContext.Provider>
   );
 }

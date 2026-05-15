@@ -21,7 +21,7 @@
 
 <p align="center">
   <b>Nowoczesna, responsywna strona wizytówkowa / portfolio</b><br />
-  zbudowana w React 19 z dwujęzycznym interfejsem PL/EN i chatbotem AI.
+  zbudowana w React 19 z dwujęzycznym interfejsem PL/EN i chatbotem AI (DeepSeek).
 </p>
 
 <p align="center">
@@ -40,7 +40,7 @@
 - [Wymagania](#-wymagania)
 - [Instalacja i uruchomienie](#-instalacja-i-uruchomienie)
 - [Konfiguracja](#-konfiguracja)
-- [API](#-api)
+- [API chatbota](#-api-chatbota)
 - [Struktura projektu](#-struktura-projektu)
 - [Deployment](#-deployment)
 - [Najczęstsze problemy](#-najczęstsze-problemy)
@@ -66,12 +66,17 @@ Aplikacja dostępna online pod adresem:
 
 ### 🤖 Chatbot AI z DeepSeek
 
-Interaktywny chatbot oparty na modelu **DeepSeek**, który odpowiada na pytania dotyczące usług, technologii i dostępności Krzysztofa. Działa jako Vercel Serverless Function (`/api/chat`).
+Interaktywny chatbot zasilany modelem **DeepSeek Chat** (deepseek-chat), który odpowiada na pytania dotyczące usług, technologii i dostępności Krzysztofa. Działa jako Vercel Serverless Function (`/api/chat`).
 
-- Limit **5 wiadomości** na sesję (zapobiega nadużyciom)
-- Stan rozmowy przechowywany w `localStorage`
-- Responsywne okno czatu z przyciskiem do otwierania/zamykania
-- Automatyczne czyszczenie po przekroczeniu limitu
+- **Limit 5 wiadomości** na sesję — liczony po stronie klienta (`useChatLimit` hook) i walidowany po stronie serwera
+- Stan rozmowy przechowywany w **sessionStorage** (znika po zamknięciu karty)
+- Odpowiedzi formatowane przez **ReactMarkdown** — obsługa **pogrubień**, list, linków
+- **Przycisk FAB** (floating action button) z ikoną koperty / X do otwierania i zamykania okna
+- **Stan pusty** z przywitaniem i informacją o liczbie pozostałych wiadomości
+- **Wskaźnik pisania** (animowane kropki) podczas oczekiwania na odpowiedź
+- **Wysłanie przez Enter** (Shift+Enter nie jest obsługiwany — pojedyncze pole tekstowe)
+- **Przycisk resetu** po wyczerpaniu limitu — czyści rozmowę i licznik
+- Walidacja po stronie API: max **2000 znaków** na wiadomość, timeout **15 sekund**
 
 ### 🗂️ Prezentacja portfolio projektów
 
@@ -79,72 +84,83 @@ Strona prezentuje wybrane realizacje z otwartym kodem źródłowym:
 
 | Projekt | Opis | Technologie |
 |---|---|---|
-| **Smart Mysłowice** | Mapa jakości powietrza i system zgłoszeń dla miasta Mysłowice. | React, TypeScript, Node.js, Leaflet |
-| **AutoFlex** | Platforma do wynajmu pojazdów z rezerwacjami online i panelem zarządzania. | Next.js, Supabase, Tailwind CSS |
+| **Smart Mysłowice** | Mapa jakości powietrza i system zgłoszeń dla miasta — zrobione, żeby pomóc mieszkańcom. | React, TypeScript, Node.js, Leaflet |
 | **Restauracja – Zamów Online** | Aplikacja do składania zamówień w restauracji – klient wybiera, kuchnia widzi, admin zarządza. | React, TypeScript, Vite, Supabase, Bootstrap, Stripe |
-| **Kawa i Ciasteczko** | Strona internetowa dla kawiarni – menu, oferta, formularz kontaktowy i zamówienie online. | Next.js, TypeScript, Tailwind CSS, Supabase |
+| **Salon Fryzjerski** | Profesjonalna i elegancka strona dla salonu fryzjerskiego z integracją Booksy. Next.js z naciskiem na szybkość i SEO. | Next.js, TypeScript, Tailwind CSS, Booksy API |
+| **Kawa i Ciasteczko** | Strona kawiarni – menu, oferta, formularz kontaktowy i zamówienie online. | Next.js, TypeScript, Tailwind CSS, Supabase |
 
-Każdy projekt posiada link do demo na żywo oraz do repozytorium na GitHubie.
+Każdy projekt posiada link do **demo na żywo** oraz do **repozytorium na GitHubie**. Karty projektów mają kolorowe akcenty i przyciski "Live demo" / "Kod na GitHub".
 
-### 🛠️ Lista usług
+### 🛠️ 8 kategorii usług freelancerskich
 
-Osiem kategorii usług freelancerskich:
+| # | Usługa | Opis |
+|---|---|---|
+| 🌐 | **Strony WWW** | Nowoczesne, szybkie i responsywne, zoptymalizowane pod SEO i Core Web Vitals |
+| 🛒 | **Sklepy online** | E-commerce z integracją Stripe / PayU, panelem produktów i pełnym flow zakupowym |
+| 🚀 | **Landing page** | Konwertujące strony lądowania z wyraźnym CTA, optymalizowane pod kampanie |
+| ⚡ | **Aplikacje webowe** | Pełnostackowe aplikacje React + Node.js z bazą danych, API i autoryzacją |
+| 🤖 | **Integracje AI** | Chatboty, automatyzacje i funkcje oparte na GPT / Claude / DeepSeek wbudowane w produkt |
+| 🎨 | **Redesign stron** | Modernizacja starych serwisów z zachowaniem treści, poprawą UX i wydajności |
+| 📅 | **Systemy rezerwacji** | Kalendarze online, rezerwacje i harmonogramy zintegrowane z powiadomieniami |
+| 🏙️ | **Aplikacje miejskie** | Rozwiązania dla samorządów i mieszkańców — mapy interaktywne, raporty, dane publiczne |
 
-- 🌐 **Strony WWW** – nowoczesne, szybkie i responsywne, zoptymalizowane pod SEO i Core Web Vitals
-- 🛒 **Sklepy online** – e-commerce z integracją Stripe / PayU, panelem produktów i pełnym flow zakupowym
-- 🚀 **Landing page** – konwertujące strony lądowania z wyraźnym CTA
-- ⚡ **Aplikacje webowe** – pełnostackowe aplikacje React + Node.js z bazą danych i API
-- 🤖 **Integracje AI** – chatboty, automatyzacje i funkcje oparte na GPT / Claude / DeepSeek
-- 🎨 **Redesign stron** – modernizacja starych serwisów z poprawą UX i wydajności
-- 📅 **Systemy rezerwacji** – kalendarze online, rezerwacje i harmonogramy z powiadomieniami
-- 🏙️ **Aplikacje miejskie** – mapy interaktywne, raporty i dane publiczne dla samorządów
-
-### 🏭 Sekcja "O mnie" – 10 lat w logistyce
+### 🏭 Sekcja "Rozumiem magazyn od środka" — 10 lat w logistyce
 
 Unikalna perspektywa: 10 lat pracy na magazynie przekute w kod. Rozwiązania tworzone z punktu widzenia osoby, która sama korzysta z systemów magazynowych – proste, intuicyjne i oszczędzające czas.
 
-- Prosty panel magazynowy (przyjęcia, wydania, lokalizacje, stany)
-- Podgląd lokalizacji pojazdów
-- Zestawienia do Excel / PDF
-- Plan zmian z powiadomieniami SMS lub e-mail
+- 🏭 **Prosty panel magazynowy** – przyjęcia, wydania, lokalizacje, stany – podstawowe funkcje ułatwiające pracę w małej firmie
+- 🚛 **Podgląd lokalizacji pojazdów (opcjonalnie)** – proste narzędzie do sprawdzania pozycji pojazdów bez zbędnych bajerów
+- 📊 **Zestawienia do Excel / PDF** – raporty stanów magazynowych i obrotów – dane, które faktycznie są potrzebne
+- 📋 **Plan zmian z powiadomieniami** – prosty harmonogram dla zespołu z powiadomieniami SMS lub e-mail
 
-### 💡 Sekcja "Dlaczego ja"
+### 💡 Sekcja "Dlaczego ja?"
 
 Cztery kluczowe zalety współpracy:
 
-- ⚡ **2× szybsze wdrożenie** – dzięki AI (Qwen, Claude) strona lub prosta apka w 2–3 dni
-- ✨ **Świeże podejście** – na bieżąco z React 19, TypeScript, Supabase
-- 🏭 **Znam magazyn od kuchni** – 10 lat doświadczenia logistycznego w projektach
-- 🌍 **Dwujęzyczny (PL/EN)** – dokumentacja i komunikacja po polsku i angielsku
+| # | Zaleta | Opis |
+|---|---|---|
+| ⚡ | **2× szybsze wdrożenie** | Dzięki AI (Qwen, Claude) strona lub prosta apka w 2–3 dni, a nie 2–3 tygodnie |
+| ✨ | **Świeże podejście** | React 19, TypeScript, Supabase – strona nie będzie wyglądać przestarzale za rok |
+| 🏭 | **Znam magazyn od kuchni** | 10 lat w logistyce – wiem, czego brakuje w systemach, bo sam traciłem na tym czas |
+| 🌍 | **Dwujęzyczny (PL/EN)** | Dokumentacja, komentarze, komunikacja – po polsku i po angielsku |
 
-### 📞 Formularz kontaktowy
+### 📞 Sekcja kontaktowa
 
-Dane kontaktowe wyświetlane w przejrzystej karcie:
+Dane kontaktowe wyświetlane w przejrzystej karcie obok CTA:
 
-- 📧 **E-mail:** krzysztof.zelman.92@gmail.com
-- 📱 **Telefon:** 666 966 720
+- 📧 **E-mail:** [krzysztof.zelman.92@gmail.com](mailto:krzysztof.zelman.92@gmail.com)
+- 📱 **Telefon:** [666 966 720](tel:+48666966720)
 - 📍 **Lokalizacja:** Mysłowice / Śląsk
 
-Przycisk "Napisz do mnie" otwiera domyślną klientkę poczty.
+Przycisk "Napisz do mnie" otwiera domyślną klientkę poczty. W sekcji widoczna jest również plakietka "Dostępny od zaraz".
 
-### 😊 Ikonki i emoji w UI
+### 🎯 Nawigacja z przełącznikiem języka PL/EN
 
-Interfejs wzbogacony o emoji i ikonki SVG, które nadają stronie lekkości i ułatwiają szybkie skanowanie treści. Każda karta usługi, zalety czy podsekcji logistycznej ma swoją ikonkę.
+Pasek nawigacyjny z płynnym `blur` po scrollu i mobilnym menu hamburgerowym z blokadą scrolla. Przycisk PL/EN przełącza cały interfejs między językami – wszystkie teksty (w tym usługi, projekty, opis logistyki) mają swoje odpowiedniki w obu językach.
 
-### 📱 Responsywny design
-
-W pełni responsywna strona dostosowująca się do wszystkich rozdzielczości – od smartfonów po szerokie monitory. Mobilne menu hamburgerowe z płynną animacją i blokadą scrolla.
-
-### 🔍 Optymalizacja SEO
-
-Strona zoptymalizowana pod kątem wyszukiwarek:
+### 🔍 Optymalizacja SEO i meta tagi
 
 - Meta tagi: `description`, `keywords`
 - Open Graph (`og:title`, `og:description`, `og:url`, `og:type`, `og:image`)
 - Twitter Card (`summary_large_image`)
 - Dane strukturalne JSON-LD (schema.org `Person`)
 - Plik `sitemap.xml` i `robots.txt`
-- Semantyczny HTML z odpowiednimi `aria-label` dla dostępności
+- Google Fonts: Inter + Space Grotesk (preconnect + preload)
+- Semantyczny HTML z `aria-label` dla dostępności
+
+### 🎨 Design system z dark theme
+
+Własne zmienne CSS w `:root` definiujące pełny design system:
+- Paleta kolorów: fiolet (#7c3aed), niebieski (#3b82f6), zielony (#10b981)
+- Gradienty: liniowe i tekstowe (purple → blue → green)
+- Cienie: `shadow-glow`, `shadow-card`
+- Zaokrąglenia: `--radius-sm` (8px) do `--radius-xl` (32px)
+- Fonty: Inter (tekst) + Space Grotesk (display)
+- Ciemne tło: `--bg: #0a0a0f`
+
+### 📱 Responsywny design + animacje scrollowe
+
+W pełni responsywna strona (od smartfonów po szerokie monitory) z animacjami "fade-up" przy wjeździe w viewport (IntersectionObserver), opóźnieniami kaskadowymi dla gridów i list.
 
 ---
 
@@ -152,13 +168,14 @@ Strona zoptymalizowana pod kątem wyszukiwarek:
 
 | 🛠️ | Technologia | Zastosowanie | Wersja |
 |---|---|---|---|
-| ⚛️ | **React** | Biblioteka UI – komponenty, stan, kontekst | ^19.2.5 |
-| 🔥 | **Vite** | Bundler i narzędzie deweloperskie (HMR, build) | ^8.0.10 |
-| 📜 | **JavaScript (JSX)** | Język programowania – gotowy do przejścia na TypeScript | — |
-| 🎨 | **CSS Modules** | Stylowanie komponentów – scoped CSS bez konfliktów | — |
-| 🤖 | **DeepSeek API** | Silnik chatbota AI – serverless function na Vercel | — |
-| ✅ | **ESLint** | Linter kodu – utrzymanie jakości i spójności | ^10.2.1 |
-| ▲ | **Vercel** | Hosting i deployment – automatyczne budowanie z GitHub | — |
+| ⚛️ | **React** | Biblioteka UI – komponenty, stan (useState), kontekst (LanguageContext) | ^19.2.5 |
+| 🔥 | **Vite** | Bundler i narzędzie deweloperskie (HMR, fast refresh, build) | ^8.0.10 |
+| 📜 | **JavaScript (JSX)** | Język programowania | — |
+| 🎨 | **CSS Modules** | Scoped CSS dla każdego komponentu – brak konfliktów nazw klas | — |
+| 🤖 | **DeepSeek API** | Silnik chatbota AI – endpoint serverless na Vercel | deepseek-chat |
+| 📝 | **ReactMarkdown** | Renderowanie odpowiedzi chatbota (pogrubienia, listy, linki) | ^10.1.0 |
+| ✅ | **ESLint** | Linter kodu (flat config, react-hooks, react-refresh) | ^10.2.1 |
+| ▲ | **Vercel** | Hosting, Serverless Functions, automatyczne deploye z GitHub | — |
 
 ---
 
@@ -166,7 +183,7 @@ Strona zoptymalizowana pod kątem wyszukiwarek:
 
 - **Node.js 18+** (zalecane 20 LTS)
 - **npm** (lub inny menedżer pakietów)
-- Klucz API **DeepSeek** (do chatbota – opcjonalne przy budowie frontendu bez API)
+- Klucz API **DeepSeek** (do chatbota – opcjonalne, jeśli nie potrzebujesz funkcji AI)
 
 ---
 
@@ -213,7 +230,18 @@ npm install -g vercel
 npx vercel dev
 ```
 
-Konfiguracja proxy w `vite.config.js` automatycznie przekierowuje żądania `/api/*` na lokalny serwer Vercel.
+Konfiguracja proxy w `vite.config.js` automatycznie przekierowuje żądania `/api/*` na lokalny serwer Vercel:
+
+```js
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000',
+      changeOrigin: true,
+    },
+  },
+}
+```
 
 ---
 
@@ -243,30 +271,13 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 > **Uwaga:** Chatbot działa tylko wtedy, gdy zmienna `DEEPSEEK_API_KEY` jest ustawiona. Jeśli nie zamierzasz używać chatbota, frontend i tak działa – API zwróci wtedy komunikat o błędzie konfiguracji.
 
-### Konfiguracja Vite
-
-Plik `vite.config.js` zawiera regułę proxy dla środowiska deweloperskiego:
-
-```js
-server: {
-  proxy: {
-    '/api': {
-      target: 'http://localhost:3000',
-      changeOrigin: true,
-    },
-  },
-}
-```
-
-Dzięki temu podczas lokalnego rozwoju żądania `/api/chat` są przekierowywane do `vercel dev` (port 3000), a frontend nie musi znać rzeczywistego adresu API.
-
 ---
 
-## 📡 API
+## 📡 API chatbota
 
 ### `POST /api/chat`
 
-Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function.
+Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function (`api/chat.js`).
 
 **Request body:**
 
@@ -284,8 +295,8 @@ Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function.
 | Pole | Typ | Opis |
 |---|---|---|
 | `message` | string | Treść wiadomości użytkownika (max 2000 znaków) |
-| `history` | array | Historia rozmowy (opcjonalnie) |
-| `count` | number | Licznik wysłanych wiadomości w sesji (opcjonalnie) |
+| `history` | array | Dotychczasowa historia rozmowy (opcjonalnie) |
+| `count` | number | Licznik wysłanych wiadomości w bieżącej sesji (opcjonalnie) |
 
 **Success response (200):**
 
@@ -301,13 +312,15 @@ Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function.
 
 | Kod | Scenariusz |
 |---|---|
-| `400` | Brak wiadomości lub przekroczona długość |
+| `400` | Brak wiadomości lub przekroczona długość (2000 znaków) |
 | `405` | Metoda inna niż POST |
-| `429` | Limit 5 wiadomości na sesję wyczerpany |
-| `500` | Brak klucza API DeepSeek |
-| `504` | Timeout odpowiedzi z DeepSeek (15s) |
+| `429` | Limit 5 wiadomości na sesję wyczerpany (z `limitReached: true`) |
+| `500` | Brak klucza API DeepSeek (`DEEPSEEK_API_KEY`) |
+| `504` | Timeout odpowiedzi z DeepSeek (15 sekund) |
 
-**Rate limiting:** Maksymalnie **5 wiadomości** na sesję (liczone po stronie serwera).
+**Rate limiting:** Maksymalnie **5 wiadomości** na sesję – liczony zarówno po stronie klienta (`useChatLimit` hook + `sessionStorage`), jak i serwera (parametr `count`).
+
+**System prompt:** Asystent Krzysztofa Zelmana, freelancera React. Odpowiada na pytania o usługi, technologie i dostępność. Zwięzły i profesjonalny.
 
 ---
 
@@ -323,34 +336,35 @@ wizytowka-kzelman/
 │   ├── robots.txt                  # Dyrektywy dla robotów wyszukiwarek
 │   └── sitemap.xml                 # Mapa strony dla SEO
 ├── src/
+│   ├── assets/                     # Zasoby graficzne (hero.png, react.svg, vite.svg)
 │   ├── components/                 # Komponenty React podzielone na sekcje
-│   │   ├── ChatBot/                # Widget czatu AI (ChatBot.jsx + moduł CSS)
-│   │   ├── Navbar/                 # Nawigacja z językiem PL/EN i menu mobilnym
-│   │   ├── Hero/                   # Sekcja powitalna z animacjami
-│   │   ├── Services/               # Lista 8 usług w gridzie
-│   │   ├── Logistics/              # Doświadczenie logistyczne
-│   │   ├── Projects/               # Portfolio projektów
-│   │   ├── WhyMe/                  # Wartość dodana – 4 zalety
-│   │   ├── Contact/                # Dane kontaktowe i CTA
-│   │   └── Footer/                 # Stopka z linkami i social mediami
+│   │   ├── ChatBot/                # Widget czatu AI (ChatBot.jsx + ChatBot.module.css)
+│   │   ├── Navbar/                 # Pasek nawigacyjny z przełącznikiem PL/EN
+│   │   ├── Hero/                   # Sekcja powitalna z animowanym gradientem i awatarem
+│   │   ├── Services/               # Siatka 8 usług z ikonami i opisami
+│   │   ├── Logistics/              # Doświadczenie logistyczne – 4 podsekcje
+│   │   ├── Projects/               # Portfolio projektów – 4 karty z linkami
+│   │   ├── WhyMe/                  # 4 zalety współpracy
+│   │   ├── Contact/                # Dane kontaktowe i CTA "Napisz do mnie"
+│   │   └── Footer/                 # Stopka z social mediami (GitHub, LinkedIn)
 │   ├── context/
-│   │   └── LanguageContext.jsx     # Tłumaczenia PL/EN i kontekst językowy
+│   │   └── LanguageContext.jsx     # Kompletne tłumaczenia PL/EN (81 kluczy) + Context Provider
 │   ├── hooks/
-│   │   └── useScrollAnimation.js   # Hook do animacji scrollowych (IntersectionObserver)
+│   │   ├── useScrollAnimation.js   # Hook do animacji fade-up (IntersectionObserver)
+│   │   └── useChatLimit.js         # Hook do licznika wiadomości chatbota (sessionStorage)
 │   ├── types/
-│   │   └── chat.js                 # JSDoc typy dla chatbota (ChatMessage, ChatState itp.)
-│   ├── assets/                     # Zasoby graficzne
-│   ├── App.jsx                     # Główny komponent – łączy wszystkie sekcje
+│   │   └── chat.js                 # JSDoc typedefs: ChatMessage, ChatState, ChatResponse, STORAGE_KEYS, MAX_MESSAGES
+│   ├── App.jsx                     # Główny komponent – stan języka + sekcje
 │   ├── App.css                     # Globalne nadpisania stylów
-│   ├── index.css                   # Design system: zmienne CSS, reset, animacje
-│   └── main.jsx                    # Punkt wejścia aplikacji
-├── .env.example                    # Przykładowy plik zmiennych środowiskowych
+│   ├── index.css                   # Design system: zmienne CSS, reset, klasy animacji
+│   └── main.jsx                    # Punkt wejścia – StrictMode + createRoot
+├── .env.example                    # Przykładowy plik zmiennych środowiskowych (DEEPSEEK_API_KEY)
 ├── .gitignore                      # Ignorowane pliki (node_modules, dist, .env)
-├── index.html                      # Szablon HTML z meta tagami i czcionkami
-├── package.json                    # Zależności i skrypty
-├── vite.config.js                  # Konfiguracja Vite (wtyczki, proxy API)
-├── vercel.json                     # Konfiguracja deploymentu na Vercel
-└── eslint.config.js                # Konfiguracja ESLinta (flat config)
+├── index.html                      # Szablon HTML z meta tagami, OG, Twitter Card, JSON-LD, Google Fonts
+├── package.json                    # Zależności i skrypty (dev, build, lint, preview)
+├── vite.config.js                  # Konfiguracja Vite – React plugin + proxy API
+├── vercel.json                     # Rewrites dla SPA (/api/* -> /api, /* -> /)
+└── eslint.config.js                # Flat config ESLint (react-hooks, react-refresh, globals)
 ```
 
 ### Opis najważniejszych plików
@@ -358,16 +372,17 @@ wizytowka-kzelman/
 | Plik | Opis |
 |---|---|
 | `src/main.jsx` | Punkt startowy – renderuje React w trybie StrictMode |
-| `src/App.jsx` | Komponent główny – zarządza stanem języka i łączy sekcje |
-| `src/index.css` | Design system – zmienne CSS (kolory, fonty, cienie), reset, klasy animacji |
-| `src/context/LanguageContext.jsx` | Kompletne tłumaczenia PL/EN i Context Provider |
-| `src/hooks/useScrollAnimation.js` | Hook do płynnych animacji przy scrollowaniu |
-| `src/components/ChatBot/ChatBot.jsx` | Widget czatu AI z obsługą API i localStorage |
-| `src/types/chat.js` | JSDoc definicje typów dla systemu chatbota |
-| `api/chat.js` | Vercel Serverless Function – proxy do DeepSeek API |
-| `index.html` | Meta tagi, OG, JSON-LD, Google Fonts (Inter + Space Grotesk) |
-| `vite.config.js` | Konfiguracja Vite z proxy API dla `vercel dev` |
-| `vercel.json` | Reguły przepisywania URL-i dla SPA i API |
+| `src/App.jsx` | Komponent główny – zarządza stanem języka (`useState`) i łączy wszystkie sekcje |
+| `src/index.css` | Design system – zmienne CSS (kolory, fonty, cienie, gradienty), reset, klasy `.fade-up` |
+| `src/context/LanguageContext.jsx` | Pełne tłumaczenia PL/EN (81 tłumaczeń) i Context Provider z `useLanguage` hookiem |
+| `src/hooks/useScrollAnimation.js` | Hook do płynnych animacji przy scrollowaniu (IntersectionObserver, jednorazowy) |
+| `src/hooks/useChatLimit.js` | Hook do licznika wiadomości chatbota (sessionStorage, max 5) |
+| `src/types/chat.js` | JSDoc definicje typów (`ChatMessage`, `ChatState`, `ChatResponse`, `MAX_MESSAGES`) |
+| `src/components/ChatBot/ChatBot.jsx` | Widget czatu AI – FAB, okno, ReactMarkdown, sessionStorage, licznik, reset |
+| `api/chat.js` | Vercel Serverless Function – proxy do DeepSeek API z walidacją i timeoutem |
+| `index.html` | Meta tagi, OG, Twitter Card, JSON-LD, Google Fonts (Inter + Space Grotesk) |
+| `vite.config.js` | Konfiguracja Vite – React plugin + proxy `/api` → `localhost:3000` |
+| `vercel.json` | Rewrites: `/api/(.*)` → `/api/$1`, `/(.*)` → `/` (SPA + API) |
 
 ---
 
@@ -394,7 +409,7 @@ Bez ustawionej zmiennej chatbot nie będzie działał, ale reszta strony działa
 
 ### Automatyczne redeploye
 
-Po każdym pushu na główną gałąź GitHub Vercel automatycznie przebudowuje i wdraża stronę.
+Po każdym pushu na główną gałąź GitHub Vercel automatycznie przebudowuje i wdraża stronę. Plik `vercel.json` zapewnia poprawne działanie SPA i endpointów API.
 
 ---
 
@@ -436,22 +451,29 @@ npm run lint
 npx eslint . --fix
 ```
 
+### Strona nie odświeża się po deployu
+
+**Przyczyna:** Cache przeglądarki.
+
+**Rozwiązanie:** Otwórz narzędzia deweloperskie (F12) → zakładka Network → zaznacz "Disable cache" → odśwież stronę. Lub użyj `Ctrl + Shift + R` (twarde odświeżenie).
+
 ---
 
 ## 🔄 Rozwój projektu
 
 Projekt jest w trakcie ciągłego rozwoju. Planowane ulepszenia:
 
-- Przejście na TypeScript
-- Dodanie formularza kontaktowego (obecnie `mailto:`)
+- Pełne przejście na TypeScript (`.tsx`)
+- Dodanie działającego formularza kontaktowego (obecnie `mailto:`)
 - Własna domena
-- Tryb jasny / ciemny do wyboru
+- Przełącznik trybu jasny / ciemny
 - Więcej projektów w portfolio
-- Rozszerzenie funkcji chatbota (kontekst, załączniki)
+- Rozszerzenie funkcji chatbota (kontekst, załączniki, dłuższa historia)
+- Testy (jednostkowe + integracyjne)
 
 **Masz pomysł na ulepszenie? Znalazłeś błąd?**
 <br />
-Napisz na <krzysztof.zelman.92@gmail.com> lub otwórz Issue na GitHubie.
+Napisz na [krzysztof.zelman.92@gmail.com](mailto:krzysztof.zelman.92@gmail.com) lub otwórz Issue na GitHubie.
 <br />
 Zapraszam do współpracy! 🤝
 
@@ -488,4 +510,4 @@ Freelancer React / Node.js / AI
 
 - 🌐 [wizytowka-kzelman.vercel.app](https://wizytowka-kzelman.vercel.app/)
 - 🐙 [github.com/krzysztofzelman](https://github.com/krzysztofzelman)
-- 💼 [LinkedIn](https://www.linkedin.com/in/krzysztof-zelman/)
+- 💼 [LinkedIn](https://www.linkedin.com/in/kzelman)

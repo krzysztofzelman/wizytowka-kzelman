@@ -13,7 +13,7 @@ const SYSTEM_PROMPT =
   'Odpowiadasz na pytania o usługi, technologie i dostępność. ' +
   'Bądź zwięzły i profesjonalny.';
 
-const MAX_MESSAGES = 3;
+const MAX_MESSAGES = 5;
 const TIMEOUT_MS = 15_000;
 
 /**

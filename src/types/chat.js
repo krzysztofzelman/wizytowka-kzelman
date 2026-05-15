@@ -26,4 +26,4 @@ export const STORAGE_KEYS = {
   COUNT: 'kz_chat_count',
 };
 
-export const MAX_MESSAGES = 3;
+export const MAX_MESSAGES = 5;

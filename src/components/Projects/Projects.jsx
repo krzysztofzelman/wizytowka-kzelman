@@ -85,16 +85,18 @@ export default function Projects() {
                 </div>
 
                 <div className={styles.btnRow}>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.liveBtn}
-                    style={{ '--accent': project.accent }}
-                  >
-                    <ExternalLinkIcon />
-                    Live demo
-                  </a>
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.liveBtn}
+                      style={{ '--accent': project.accent }}
+                    >
+                      <ExternalLinkIcon />
+                      Live demo
+                    </a>
+                  )}
                   <a
                     href={project.github}
                     target="_blank"

@@ -14,7 +14,23 @@
       "Bash(powershell *)",
       "WebFetch(restaurant-clean-omega.vercel.app)",
       "Bash(npm run *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(mkdir *)",
+      "Agent(Explore)",
+      "Bash(ver)",
+      "Bash(npm uninstall *)",
+      "Bash(del *)",
+      "Bash(node *)",
+      "Bash(type *)",
+      "Bash(git *)",
+      "Bash(where *)",
+      "Bash(ssh *)",
+      "Bash(ssh-keygen *)",
+      "Bash(plink *)",
+      "Bash(wsl *)",
+      "Bash(copy *)",
+      "Bash(timeout *)",
+      "Bash(findstr *)"
     ]
   },
   "$version": 4

@@ -30,7 +30,13 @@
       "Bash(wsl *)",
       "Bash(copy *)",
       "Bash(timeout *)",
-      "Bash(findstr *)"
+      "Bash(findstr *)",
+      "Bash(gh *)",
+      "Monitor(l *)",
+      "Monitor(timeout *)",
+      "Monitor(gh *)",
+      "Monitor(findstr *)",
+      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\base64.exe\" *)"
     ]
   },
   "$version": 4

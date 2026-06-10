@@ -31,7 +31,13 @@
       "Bash(copy *)",
       "Bash(timeout *)",
       "Bash(findstr *)",
-      "Bash(gh *)"
+      "Bash(gh *)",
+      "Monitor(l *)",
+      "Monitor(timeout *)",
+      "Monitor(gh *)",
+      "Monitor(findstr *)",
+      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\base64.exe\" *)",
+      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\ssh-keygen.exe\" *)"
     ]
   },
   "$version": 4

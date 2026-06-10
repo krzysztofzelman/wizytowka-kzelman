@@ -27,8 +27,8 @@ jobs:
             -p "$SSH_PORT" \
             -o StrictHostKeyChecking=no \
             "$SSH_USER@$SSH_HOST" \
-            'export NVM_DIR="/root/.nvm" && \
-             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
+            '. /home/deployer/.nvm/nvm.sh && \
              cd /var/www/kzelman && \
              git pull origin master && \
+             npm install && \
              npm run build'

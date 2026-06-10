@@ -31,4 +31,5 @@ jobs:
              cd /var/www/kzelman && \
              git pull origin master && \
              npm install && \
-             npm run build'
+             npm run build && \
+             sed -i s/ crossorigin//g dist/index.html'

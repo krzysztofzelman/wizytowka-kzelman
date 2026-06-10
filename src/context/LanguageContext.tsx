@@ -241,7 +241,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'System zarządzania produktami w magazynie — REST API, CRUD, wyszukiwanie po SKU.',
           tech: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
           github: 'https://github.com/krzysztofzelman/magazyn-frontend',
-          live: 'https://magazyn-frontend.vercel.app',
+          live: 'https://magazyn.kzelman.pl/',
           accent: '#ef4444',
         },
         {
@@ -436,7 +436,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'Warehouse product management system — REST API, CRUD, SKU search.',
           tech: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
           github: 'https://github.com/krzysztofzelman/magazyn-frontend',
-          live: 'https://magazyn-frontend.vercel.app',
+          live: 'https://magazyn.kzelman.pl/',
           accent: '#ef4444',
         },
         {

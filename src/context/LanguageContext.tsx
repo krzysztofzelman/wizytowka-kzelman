@@ -225,7 +225,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'Platforma danych miejskich — mapa Leaflet, jakość powietrza GIOŚ, pogoda, lokalizacje AED.',
           tech: ['React', 'Node.js', 'Express', 'Leaflet'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
-          live: 'https://smart-myslowice-v2.vercel.app',
+          live: 'https://smart-myslowice.pl/',
           accent: '#10b981',
         },
         {
@@ -420,7 +420,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'City data platform — Leaflet map, GIOŚ air quality, weather, AED locations.',
           tech: ['React', 'Node.js', 'Express', 'Leaflet'],
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
-          live: 'https://smart-myslowice-v2.vercel.app',
+          live: 'https://smart-myslowice.pl/',
           accent: '#10b981',
         },
         {

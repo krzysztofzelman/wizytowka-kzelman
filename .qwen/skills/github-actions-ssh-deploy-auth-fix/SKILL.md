@@ -1,83 +1,51 @@
 ---
 name: github-actions-ssh-deploy-auth-fix
-description: Diagnose and fix GitHub Actions SSH authentication failures (appleboy/ssh-action) on VPS — key mismatch after user change, server-side setup, and secret update
+description: Full VPS deploy setup — SSH auth fix, appleboy action pitfalls, direct SSH commands, nvm path resolution, and remote command debugging
 source: auto-skill
-extracted_at: '2026-06-10T18:32:10.119Z'
+extracted_at: '2026-06-10T18:58:37.021Z'
 ---
 
-# Fix GitHub Actions SSH deploy authentication failures
+# Fix GitHub Actions SSH Deploy: from auth failure to successful build
 
 ## Problem
 
-GitHub Actions workflow using `appleboy/ssh-action` fails with:
+GitHub Actions deploy workflow fails — can be authentication errors or remote command failures after auth succeeds.
 
-```
-ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
-```
+## Authentication error patterns
 
-## Common root causes
+### Pattern A — `ssh: handshake failed: ssh: unable to authenticate`
 
-| Cause | Symptom |
+The appleboy/ssh-action Docker container (`appleboy/ssh-action@v1.0.3`) uses a Go-based SSH client. This can fail when:
+
+| Cause | Symptom / Diagnosis |
 |---|---|
-| **User mismatch** | Changed `username` from `root` to `deployer` (or vice versa) but SSH key in GitHub Secrets is only authorized for the old user |
-| **Key format wrong** | GitHub Secret has extra whitespace, missing newlines, or wrong format (`-----BEGIN RSA PRIVATE KEY-----` vs `-----BEGIN OPENSSH PRIVATE KEY-----`) |
-| **Server permissions** | `~/.ssh/` not `700`, `~/.ssh/authorized_keys` not `600`, or wrong owner |
-| **No public key on server** | The private key in GitHub has no matching public key in the target user's `authorized_keys` |
-| **SSH port wrong** | Custom port (e.g. `2022`) not set in workflow, or firewall blocks it |
-| **Root SSH disabled** | `PermitRootLogin no` in `/etc/ssh/sshd_config` but workflow uses `username: root` |
+| **User mismatch** | Changed `username` from `root` to `deployer` but key not authorized for deployer |
+| **Key format — OpenSSH vs PEM** | `ssh.ParsePrivateKey: ssh: no key found` — Go crypto library cannot parse the new OpenSSH private key format (`-----BEGIN OPENSSH PRIVATE KEY-----`). Solution: use RSA 4096-bit PEM format (`ssh-keygen -t rsa -b 4096 -m PEM`) OR switch to direct SSH commands (see below) |
+| **Multi-line secret corruption** | GitHub Actions truncates or corrupts multi-line secrets passed as env vars. Solution: base64-encode the key and decode at runtime |
+| **Server permissions** | `~/.ssh/` not `700`, `~/.ssh/authorized_keys` not `600`, wrong owner |
+| **No public key on server** | Private key in GitHub has no matching public key on the server |
 
-## Diagnosis process
+### Pattern B — `ssh.ParsePrivateKey: ssh: no key found` (appleboy-specific)
 
-### 1. Gather information
+This means the Go crypto library in the Docker container can't parse your key format. **This is the core reason to avoid appleboy/ssh-action** — it's a black box with limited key format support.
 
-- Read the workflow file: `.github/workflows/deploy.yml`
-- Identify: `host`, `port`, `username`, `key` (which secret name), `script`
-- Check if repos exist on GitHub: `curl -s "https://api.github.com/users/<owner>/repos?per_page=100" | jq '.[].name'`
-- If repos don't exist on GitHub → no pipeline can run (push them first)
+## Fix: replace appleboy/ssh-action with direct SSH commands
 
-### 2. Check existing SSH connection manually (from local machine)
+The most reliable approach: use the `run:` step directly with `ssh` + `base64`-encoded key, bypassing the Docker container entirely.
+
+### Step 1 — Generate deploy key (RSA 4096 PEM format for best compatibility)
 
 ```bash
-# Test as the user the workflow uses
-ssh -p <port> -i <path-to-private-key> <username>@<host> "echo OK && whoami"
+ssh-keygen -t rsa -b 4096 -m PEM -f deployer_rsa_key -N "" -C "deployer@github-actions"
 ```
 
-If this works but GitHub Actions doesn't → the key in the GitHub Secret is different from your local key.
+> Note: ED25519 keys are smaller/faster but some SSH implementations have issues. RSA 4096 PEM is safest for cross-platform CI.
 
-### 3. Check GitHub Secrets format
-
-Secrets must contain the **entire** private key file content, including `-----BEGIN ...-----` and `-----END ...-----` lines, with proper line breaks. A single-line key will fail.
-
-## Fix procedure
-
-### Option A — Generate new key pair and set up server user (recommended)
-
-Use this when the existing key was set up for one user but you're switching to another user (e.g. `root` → `deployer`).
-
-#### Step 1 — Generate a new key pair locally
+### Step 2 — Set up deployer user on VPS
 
 ```bash
-ssh-keygen -t ed25519 -f deployer_key -N "" -C "deployer@github-actions"
-```
-
-Two files created: `deployer_key` (private) and `deployer_key.pub` (public).
-
-#### Step 2 — SSH into server as a user with sudo (e.g. root)
-
-```bash
-# Using password auth (if available):
-sshpass -p "<password>" ssh -p <port> root@<host>
-
-# Or using an existing key:
-ssh -p <port> -i <existing-key> root@<host>
-```
-
-#### Step 3 — Create/setup the deploy user on the server
-
-```bash
-# Create user if not exists
+# Create deployer user
 id deployer 2>/dev/null || useradd -m -s /bin/bash deployer
-usermod -aG sudo deployer
 
 # Set up SSH key
 mkdir -p ~deployer/.ssh
@@ -86,60 +54,155 @@ chmod 600 ~deployer/.ssh/authorized_keys
 chmod 700 ~deployer/.ssh
 chown -R deployer:deployer ~deployer/.ssh
 
-# Grant limited sudo for deployment commands
-echo 'deployer ALL=(ALL) NOPASSWD: /usr/bin/git, /usr/bin/npm, /usr/bin/docker, /usr/bin/systemctl' > /etc/sudoers.d/deployer
-chmod 440 /etc/sudoers.d/deployer
-
-# Ensure deploy directory exists with correct ownership
+# Ensure deploy directory exists
 mkdir -p /var/www/<project>
 chown -R deployer:deployer /var/www/<project>
 ```
 
-#### Step 4 — Update GitHub Secret
+### Step 3 — Install nvm for deployer (critical!)
 
-Go to **GitHub → Settings → Secrets and variables → Actions**, find the secret name used in the workflow (e.g. `VPS_SSH_KEY`), and replace its value with the **entire content** of the private key file (`deployer_key`), including the `-----BEGIN` and `-----END` lines.
+**Problem**: The deployer user cannot access `/root/` (default 700 permissions). If nvm is only installed for root, deployer can't use it.
 
-#### Step 5 — Verify
-
-Re-run the failed workflow. Or test locally:
+**Fix**: Install nvm for the deployer user:
 
 ```bash
-ssh -p <port> -i deployer_key deployer@<host> "echo OK && whoami"
+su - deployer
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+# Exit back to root, then install Node:
+sudo -u deployer bash -c '. /home/deployer/.nvm/nvm.sh && nvm install 24.15.0 && nvm alias default 24.15.0'
 ```
 
-### Option B — Add existing key to the new user (if key already works for root)
+**Important**: Node is installed at `/home/deployer/.nvm/versions/node/v24.15.0/bin/node`. You can reference it directly with absolute paths if needed.
+
+### Step 4 — Base64-encode the private key
+
+On Windows (PowerShell):
+```powershell
+$key = Get-Content -Raw ".\deployer_rsa_key"
+$b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($key))
+Write-Host $b64  # Copy this value
+```
+
+On Linux/macOS:
+```bash
+base64 -w0 deployer_rsa_key  # Copy this value
+```
+
+### Step 5 — Store the GitHub Secret
+
+Go to **GitHub → Settings → Secrets and variables → Actions**, find `VPS_SSH_KEY` (or whatever your workflow uses), paste the base64 value.
+
+### Step 6 — Write the workflow
+
+```yaml
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        env:
+          SSH_HOST: ${{ secrets.VPS_HOST }}
+          SSH_PORT: ${{ secrets.VPS_PORT }}
+          SSH_USER: deployer
+          SSH_KEY_B64: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY_B64" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/deploy_key \
+            -p "$SSH_PORT" \
+            -o StrictHostKeyChecking=no \
+            "$SSH_USER@$SSH_HOST" \
+            '. /home/deployer/.nvm/nvm.sh && \
+             cd /var/www/kzelman && \
+             git pull origin master && \
+             npm install && \
+             npm run build'
+```
+
+**Key points in this workflow:**
+- Uses `base64 -d` to decode the SSH key from the secret (avoids multi-line secret corruption)
+- Sources nvm with **absolute path** `. /home/deployer/.nvm/nvm.sh` (NOT `$HOME/.nvm/nvm.sh` — see quoting caveat below)
+- Runs `npm install` before `npm run build` (VPS may have stale node_modules)
+- `ssh-keyscan` avoids interactive host key prompt
+
+## The quoting problem: why absolute paths matter
+
+When you write the `run:` block in GitHub Actions, the command is executed on the GitHub runner (Linux). The runner processes the YAML and passes the `run:` content to a shell. For multi-line SSH commands in single quotes:
+
+```yaml
+run: |
+  ssh ... "$SSH_USER@$SSH_HOST" \
+    'export NVM_DIR="$HOME/.nvm" && \
+     . "$NVM_DIR/nvm.sh" && ...'
+```
+
+The problem: on **Windows runners** or when cmd.exe processes the command, `\$` may be passed literally to the remote shell, causing `$HOME` to not expand. Even on Linux runners, the nested quoting can misbehave.
+
+**Always use absolute paths inside SSH commands** to avoid quoting issues:
+- ✅ `. /home/deployer/.nvm/nvm.sh` (source with absolute path)
+- ❌ `export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"` (variable may not expand)
+
+## Debugging: test the full deploy command chain
+
+When SSH auth succeeds but the remote command fails (exit code 1):
+
+1. **SSH as root** to test: `ssh -p <port> root@<host> "sudo -u deployer bash -c '. /home/deployer/.nvm/nvm.sh && cd /var/www/<project> && git pull origin master && npm install && npm run build'"`
+2. **Test in isolation**: run each command separately (nvm, git pull, npm install, npm run build)
+3. **Check node_modules**: if build fails with missing imports, `npm install` wasn't run after git pull
+4. **Check nvm path**: if `nvm.sh: Permission denied`, the path is wrong or the user can't traverse to it
+
+## Common remote command failures
+
+| Error | Cause | Fix |
+|---|---|---|
+| `$NVM_DIR/nvm.sh: Permission denied` | Can't access /root/; nvm installed for wrong user | Install nvm for deployer: `. /home/deployer/.nvm/nvm.sh` |
+| `node: command not found` | nvm not loaded | Source nvm before using node: `. /home/deployer/.nvm/nvm.sh` |
+| `npm: command not found` | nvm not loaded (npm is bundled with node) | Same fix as above |
+| `Build failed with 1 error: Failed to resolve import "react-helmet-async"` | npm install not run after git pull | Add `npm install` before `npm run build` |
+| `git pull` fails | Permission denied, deploy key not set up | Check VPS git remote, deployer has write access |
+
+## Server-side setup checklist
 
 ```bash
-ssh root@<host> -p <port>
+# 1. Create deployer user (skip if exists)
+id deployer || useradd -m -s /bin/bash deployer
+
+# 2. Install nvm for deployer
+su - deployer
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+# 3. Install Node
+sudo -u deployer bash -c '. /home/deployer/.nvm/nvm.sh && nvm install 24 && nvm alias default 24'
+
+# 4. Set up SSH access
 mkdir -p ~deployer/.ssh
-cat ~/.ssh/authorized_keys >> ~deployer/.ssh/authorized_keys
+# Add public key
 chmod 600 ~deployer/.ssh/authorized_keys
 chmod 700 ~deployer/.ssh
 chown -R deployer:deployer ~deployer/.ssh
+
+# 5. Clone project
+cd /var/www
+git clone <repo-url> <project>
+chown -R deployer:deployer /var/www/<project>
 ```
-
-This copies root's authorized keys to deployer. No need to update GitHub Secrets.
-
-## Using sshpass on Windows (via WSL)
-
-On Windows, use WSL for non-interactive password SSH:
-
-1. Check sshpass availability: `wsl sh -c "which sshpass"` (install with `sudo apt-get install sshpass` if missing)
-2. Find the correct mount path: WSL mounts Windows drives at `/mnt/host/` (not `/mnt/c/`)
-3. Run: `wsl sshpass -p "<password>" ssh -o StrictHostKeyChecking=accept-new -p <port> root@<host> "<commands>"`
-4. For complex multi-line scripts, use: `wsl sshpass -p "<password>" ssh -p <port> root@<host> "bash -s" < script.sh`
-
-## Security notes
-
-- Never deploy as `root` — create a dedicated `deployer` user with limited sudo
-- Use ED25519 keys instead of RSA (smaller, faster, equally secure)
-- Use `ssh-keygen -t ed25519` not `-t rsa`
-- Store the SSH private key **only** in GitHub Secrets, never in the repository
-- Consider adding a passphrase to the key (not supported by appleboy/ssh-action without extra config)
 
 ## When to use this skill
 
-- GitHub Actions SSH deploy fails with authentication error
-- Changing the SSH user in the deploy workflow
-- Setting up a new VPS for GitHub Actions deployments from scratch
-- Moving from root-based to deployer-based deployment
+- Setting up a new VPS deploy from scratch via GitHub Actions
+- appleboy/ssh-action fails with `ssh.ParsePrivateKey: ssh: no key found`
+- Remote commands succeed in local SSH test but fail in GitHub Actions
+- Need to debug nvm path/Node resolution in deploy commands
+- Migrating from root-based deploys to a dedicated deployer user

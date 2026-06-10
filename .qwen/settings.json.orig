@@ -36,7 +36,12 @@
       "Monitor(timeout *)",
       "Monitor(gh *)",
       "Monitor(findstr *)",
-      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\base64.exe\" *)"
+      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\base64.exe\" *)",
+      "Bash(\"%userprofile%\\scoop\\apps\\git\\current\\usr\\bin\\ssh-keygen.exe\" *)",
+      "Bash(. *)",
+      "Bash(endssh)",
+      "Bash(nslookup *)",
+      "Bash(python3 *)"
     ]
   },
   "$version": 4

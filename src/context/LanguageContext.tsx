@@ -233,7 +233,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'Platforma e-commerce dla marki odzieżowej — sklep kliencki, panel admina, JWT, Docker, GitHub Actions CI/CD.',
           tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'Docker', 'nginx'],
           github: 'https://github.com/krzysztofzelman/mercha',
-          live: '',
+          live: 'https://mercha.kzelman.pl/',
           accent: '#3b82f6',
         },
         {
@@ -428,7 +428,7 @@ export const translations: Record<Lang, TranslationShape> = {
           desc: 'E-commerce platform for a clothing brand — customer store, admin panel, JWT, Docker, GitHub Actions CI/CD.',
           tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'Docker', 'nginx'],
           github: 'https://github.com/krzysztofzelman/mercha',
-          live: '',
+          live: 'https://mercha.kzelman.pl/',
           accent: '#3b82f6',
         },
         {

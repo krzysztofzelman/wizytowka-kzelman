@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import styles from './WhyMe.module.css';
 
-export default function WhyMe() {
+const WhyMe: FC = () => {
   const { t } = useLanguage();
   const [headerRef, headerVisible] = useScrollAnimation();
   const [tilesRef, tilesVisible] = useScrollAnimation({ threshold: 0.1 });
@@ -36,4 +37,6 @@ export default function WhyMe() {
       </div>
     </section>
   );
-}
+};
+
+export default WhyMe;

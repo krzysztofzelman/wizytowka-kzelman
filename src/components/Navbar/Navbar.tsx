@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
+import type { FC } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './Navbar.module.css';
 
-export default function Navbar() {
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+const Navbar: FC = () => {
   const { lang, t, toggleLang } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +24,7 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const links = [
+  const links: NavLink[] = [
     { href: '#services', label: t.nav.services },
     { href: '#logistics', label: t.nav.logistics },
     { href: '#projects', label: t.nav.projects },
@@ -26,7 +32,7 @@ export default function Navbar() {
     { href: '#contact', label: t.nav.contact },
   ];
 
-  const handleLink = () => setMenuOpen(false);
+  const handleLink: () => void = () => setMenuOpen(false);
 
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
@@ -66,4 +72,6 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

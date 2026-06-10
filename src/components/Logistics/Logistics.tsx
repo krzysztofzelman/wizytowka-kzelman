@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import styles from './Logistics.module.css';
 
-export default function Logistics() {
+const Logistics: FC = () => {
   const { t } = useLanguage();
   const [headerRef, headerVisible] = useScrollAnimation();
   const [subRef, subVisible] = useScrollAnimation({ threshold: 0.08 });
@@ -42,4 +43,6 @@ export default function Logistics() {
       </div>
     </section>
   );
-}
+};
+
+export default Logistics;

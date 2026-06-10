@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import type { FC } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './Hero.module.css';
 
-export default function Hero() {
+const Hero: FC = () => {
   const { t } = useLanguage();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 80);
@@ -71,4 +72,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

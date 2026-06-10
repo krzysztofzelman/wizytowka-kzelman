@@ -1,21 +1,16 @@
 import { useState, useCallback, useEffect } from 'react';
 import { STORAGE_KEYS, MAX_MESSAGES } from '../types/chat';
 
-/**
- * @typedef {Object} UseChatLimitReturn
- * @property {number} count
- * @property {number} remaining
- * @property {boolean} isLimitReached
- * @property {() => void} increment
- * @property {() => void} reset
- */
+interface UseChatLimitReturn {
+  count: number;
+  remaining: number;
+  isLimitReached: boolean;
+  increment: () => void;
+  reset: () => void;
+}
 
-/**
- * @param {string} [storageKey='kz_chat_count']
- * @returns {UseChatLimitReturn}
- */
-export function useChatLimit(storageKey = STORAGE_KEYS.COUNT) {
-  const [count, setCount] = useState(() => {
+export function useChatLimit(storageKey: string = STORAGE_KEYS.COUNT): UseChatLimitReturn {
+  const [count, setCount] = useState<number>(() => {
     try {
       const stored = sessionStorage.getItem(storageKey);
       if (stored !== null) {

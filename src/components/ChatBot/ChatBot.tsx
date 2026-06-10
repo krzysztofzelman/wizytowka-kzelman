@@ -1,17 +1,19 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import type { FC, KeyboardEvent } from 'react';
 import ReactMarkdown from 'react-markdown';
+import type { ChatMessage } from '../../types/chat';
 import styles from './ChatBot.module.css';
 import { useChatLimit } from '../../hooks/useChatLimit';
 import { STORAGE_KEYS, MAX_MESSAGES } from '../../types/chat';
 
-export default function ChatBot() {
+const ChatBot: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState(() => {
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
     try {
       const stored = sessionStorage.getItem(STORAGE_KEYS.MESSAGES);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) return parsed as ChatMessage[];
       }
     } catch {
       // sessionStorage unavailable or corrupt data
@@ -21,8 +23,8 @@ export default function ChatBot() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { count, remaining, isLimitReached, increment, reset } = useChatLimit();
-  const messagesEndRef = useRef(null);
-  const inputRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Persist messages to sessionStorage
   useEffect(() => {
@@ -53,9 +55,8 @@ export default function ChatBot() {
     if (!text || isLoading || isLimitReached) return;
 
     setInput('');
-    const userMessage = { role: 'user', content: text };
+    const userMessage: ChatMessage = { role: 'user', content: text };
     setMessages((prev) => [...prev, userMessage]);
-    increment();
     setIsLoading(true);
 
     // Build history for the API (without the just-added message)
@@ -72,6 +73,9 @@ export default function ChatBot() {
         throw new Error(`HTTP ${res.status}`);
       }
 
+      // Increment counter only after successful API response
+      increment();
+
       const data = await res.json();
       const reply = data.reply || 'Przepraszam, wystąpił błąd.';
 
@@ -80,7 +84,7 @@ export default function ChatBot() {
       setMessages((prev) => [
         ...prev,
         {
-          role: 'assistant',
+          role: 'assistant' as const,
           content:
             'Przepraszam, wystąpił błąd połączenia. Spróbuj ponownie lub skontaktuj się przez formularz kontaktowy.',
         },
@@ -90,7 +94,7 @@ export default function ChatBot() {
     }
   }, [input, isLoading, isLimitReached, messages, count, increment]);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -164,7 +168,7 @@ export default function ChatBot() {
                   </svg>
                 </div>
                 <p className={styles.emptyText}>
-                  Witaj! 👋 Jestem asystentem Krzysztofa. Zadaj pytanie o jego usługi, technologie lub dostępność.
+                  Witaj! Witaj! Jestem asystentem Krzysztofa. Zadaj pytanie o jego usługi, technologie lub dostępność.
                 </p>
                 <p className={styles.emptyHint}>
                   Pozostało Ci <strong>{remaining}</strong> z {MAX_MESSAGES} wiadomości w tej sesji.
@@ -268,4 +272,6 @@ export default function ChatBot() {
       )}
     </>
   );
-}
+};
+
+export default ChatBot;

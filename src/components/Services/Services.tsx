@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import styles from './Services.module.css';
 
-export default function Services() {
+const Services: FC = () => {
   const { t } = useLanguage();
   const [headerRef, headerVisible] = useScrollAnimation();
   const [gridRef, gridVisible] = useScrollAnimation({ threshold: 0.05 });
@@ -36,4 +37,6 @@ export default function Services() {
       </div>
     </section>
   );
-}
+};
+
+export default Services;

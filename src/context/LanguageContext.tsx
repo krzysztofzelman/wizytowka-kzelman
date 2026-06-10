@@ -1,6 +1,120 @@
 import { createContext, useContext } from 'react';
 
-export const translations = {
+export interface NavTranslation {
+  services: string;
+  logistics: string;
+  projects: string;
+  whyMe: string;
+  contact: string;
+}
+
+export interface HeroTranslation {
+  tagline: string;
+  motto: string;
+  cta1: string;
+  cta2: string;
+  available: string;
+  badges: string[];
+}
+
+export interface ServiceItem {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+export interface ServicesTranslation {
+  label: string;
+  title: string;
+  subtitle: string;
+  items: ServiceItem[];
+}
+
+export interface LogisticsSubsection {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+export interface LogisticsTranslation {
+  title: string;
+  subtitle: string;
+  desc: string;
+  badge: string;
+  subsections: LogisticsSubsection[];
+}
+
+export interface ProjectItem {
+  title: string;
+  desc: string;
+  tech: string[];
+  github: string;
+  live: string;
+  accent: string;
+}
+
+export interface ProjectsTranslation {
+  label: string;
+  title: string;
+  subtitle: string;
+  viewGithub: string;
+  items: ProjectItem[];
+}
+
+export interface WhyMeItem {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+export interface WhyMeTranslation {
+  label: string;
+  title: string;
+  subtitle: string;
+  items: WhyMeItem[];
+}
+
+export interface ContactTranslation {
+  label: string;
+  title: string;
+  subtitle: string;
+  emailLabel: string;
+  phoneLabel: string;
+  locationLabel: string;
+  email: string;
+  phone: string;
+  location: string;
+  cta: string;
+  available: string;
+}
+
+export interface FooterTranslation {
+  tagline: string;
+  rights: string;
+  builtWith: string;
+  nav: string[];
+}
+
+export interface TranslationShape {
+  nav: NavTranslation;
+  hero: HeroTranslation;
+  services: ServicesTranslation;
+  logistics: LogisticsTranslation;
+  projects: ProjectsTranslation;
+  whyMe: WhyMeTranslation;
+  contact: ContactTranslation;
+  footer: FooterTranslation;
+}
+
+export type Lang = 'pl' | 'en';
+
+export interface LanguageContextValue {
+  lang: Lang;
+  t: TranslationShape;
+  toggleLang: () => void;
+}
+
+export const translations: Record<Lang, TranslationShape> = {
   pl: {
     nav: {
       services: 'Usługi',
@@ -76,7 +190,7 @@ export const translations = {
           icon: '🏭',
         },
         {
-          title: 'Podgląd lokalizacji pojazdów (opcjonalnie)',
+          title: 'Podgląd lokalizacji pojazdów',
           desc: 'Proste narzędzie do sprawdzania, gdzie są pojazdy – bez zbędnych bajerów.',
           icon: '🚛',
         },
@@ -206,7 +320,7 @@ export const translations = {
     },
     hero: {
       tagline: 'I build websites and apps — faster with AI',
-      motto: '10 years in a warehouse. Now I code. I know what\'s needed.',
+      motto: "10 years in a warehouse. Now I code. I know what's needed.",
       cta1: 'View projects',
       cta2: 'Get in touch',
       available: 'Available for projects',
@@ -392,7 +506,7 @@ export const translations = {
   },
 };
 
-export const LanguageContext = createContext({
+export const LanguageContext = createContext<LanguageContextValue>({
   lang: 'pl',
   t: translations.pl,
   toggleLang: () => {},

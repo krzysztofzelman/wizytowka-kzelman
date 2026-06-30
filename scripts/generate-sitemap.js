@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const now = new Date().toISOString().split('T')[0];
 
-const SITE_URL = 'https://wizytowka-kzelman.vercel.app';
+const SITE_URL = 'https://kzelman.pl';
 
 const pages = [
   { loc: '', priority: '1.00', changefreq: 'weekly' },

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import handler from './chat.js';
 
 /**
- * Minimal mock for Vercel Request/Response objects.
+ * Minimal mock for HTTP Request/Response objects.
  * We test only validation and edge cases — actual LLM calls are not mocked.
  */
 

@@ -11,9 +11,6 @@
   <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white&style=for-the-badge" alt="Vite 8" />
   </a>
-  <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=white&style=for-the-badge" alt="Vercel" />
-  </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License" />
   </a>
@@ -25,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://wizytowka-kzelman.vercel.app/" target="_blank" rel="noopener noreferrer">
+  <a href="https://kzelman.pl/" target="_blank" rel="noopener noreferrer">
     🔗 <b>Zobacz na żywo →</b>
   </a>
 </p>
@@ -55,8 +52,8 @@
 Aplikacja dostępna online pod adresem:
 
 <p align="center">
-  <a href="https://wizytowka-kzelman.vercel.app/" target="_blank" rel="noopener noreferrer">
-    <b>https://wizytowka-kzelman.vercel.app/</b>
+  <a href="https://kzelman.pl/" target="_blank" rel="noopener noreferrer">
+    <b>https://kzelman.pl/</b>
   </a>
 </p>
 
@@ -66,7 +63,7 @@ Aplikacja dostępna online pod adresem:
 
 ### 🤖 Chatbot AI z DeepSeek
 
-Interaktywny chatbot zasilany modelem **DeepSeek Chat** (deepseek-chat), który odpowiada na pytania dotyczące usług, technologii i dostępności Krzysztofa. Działa jako Vercel Serverless Function (`/api/chat`).
+Interaktywny chatbot zasilany modelem **DeepSeek Chat** (deepseek-chat), który odpowiada na pytania dotyczące usług, technologii i dostępności Krzysztofa. Działa jako serverless function (`/api/chat`).
 
 - **Limit 5 wiadomości** na sesję — liczony po stronie klienta (`useChatLimit` hook) i walidowany po stronie serwera
 - Stan rozmowy przechowywany w **sessionStorage** (znika po zamknięciu karty)
@@ -172,10 +169,10 @@ W pełni responsywna strona (od smartfonów po szerokie monitory) z animacjami "
 | 🔥 | **Vite** | Bundler i narzędzie deweloperskie (HMR, fast refresh, build) | ^8.0.10 |
 | 📜 | **JavaScript (JSX)** | Język programowania | — |
 | 🎨 | **CSS Modules** | Scoped CSS dla każdego komponentu – brak konfliktów nazw klas | — |
-| 🤖 | **DeepSeek API** | Silnik chatbota AI – endpoint serverless na Vercel | deepseek-chat |
+| 🤖 | **DeepSeek API** | Silnik chatbota AI | deepseek-chat |
 | 📝 | **ReactMarkdown** | Renderowanie odpowiedzi chatbota (pogrubienia, listy, linki) | ^10.1.0 |
 | ✅ | **ESLint** | Linter kodu (flat config, react-hooks, react-refresh) | ^10.2.1 |
-| ▲ | **Vercel** | Hosting, Serverless Functions, automatyczne deploye z GitHub | — |
+| 🐧 | **VPS (Ubuntu)** | Hosting – własny serwer z nginx, PM2, Certbot SSL | — |
 
 ---
 
@@ -220,17 +217,9 @@ npm run lint
 
 ### Uruchomienie z API lokalnie
 
-Chatbot wymaga serwera API. Na produkcji działa jako Vercel Serverless Function. Lokalnie użyj `vercel dev`:
+Chatbot wymaga serwera API. Na produkcji działa jako serverless function. Lokalnie uruchom osobny serwer API na porcie 3000 (np. Express).
 
-```bash
-# Zainstaluj Vercel CLI (jeśli nie masz)
-npm install -g vercel
-
-# Uruchom serwer deweloperski + API (port 5173 frontend, port 3000 API)
-npx vercel dev
-```
-
-Konfiguracja proxy w `vite.config.js` automatycznie przekierowuje żądania `/api/*` na lokalny serwer Vercel:
+Konfiguracja proxy w `vite.config.js` przekierowuje żądania `/api/*` na `localhost:3000`:
 
 ```js
 server: {
@@ -277,7 +266,7 @@ DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### `POST /api/chat`
 
-Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function (`api/chat.js`).
+Endpoint dla chatbota AI. Zaimplementowany jako serverless function (`api/chat.js`).
 
 **Request body:**
 
@@ -328,7 +317,7 @@ Endpoint dla chatbota AI. Zaimplementowany jako Vercel Serverless Function (`api
 
 ```
 wizytowka-kzelman/
-├── api/                            # Vercel Serverless Functions
+├── api/                            # Serverless Functions (endpoint chatbota)
 │   └── chat.js                     # Endpoint chatbota AI (DeepSeek)
 ├── public/                         # Pliki statyczne
 │   ├── favicon.svg                 # Ikona karty (monogram KZ)
@@ -363,7 +352,6 @@ wizytowka-kzelman/
 ├── index.html                      # Szablon HTML z meta tagami, OG, Twitter Card, JSON-LD, Google Fonts
 ├── package.json                    # Zależności i skrypty (dev, build, lint, preview)
 ├── vite.config.js                  # Konfiguracja Vite – React plugin + proxy API
-├── vercel.json                     # Rewrites dla SPA (/api/* -> /api, /* -> /)
 └── eslint.config.js                # Flat config ESLint (react-hooks, react-refresh, globals)
 ```
 
@@ -379,37 +367,45 @@ wizytowka-kzelman/
 | `src/hooks/useChatLimit.js` | Hook do licznika wiadomości chatbota (sessionStorage, max 5) |
 | `src/types/chat.js` | JSDoc definicje typów (`ChatMessage`, `ChatState`, `ChatResponse`, `MAX_MESSAGES`) |
 | `src/components/ChatBot/ChatBot.jsx` | Widget czatu AI – FAB, okno, ReactMarkdown, sessionStorage, licznik, reset |
-| `api/chat.js` | Vercel Serverless Function – proxy do DeepSeek API z walidacją i timeoutem |
+| `api/chat.js` | Serverless function – proxy do DeepSeek API z walidacją i timeoutem |
 | `index.html` | Meta tagi, OG, Twitter Card, JSON-LD, Google Fonts (Inter + Space Grotesk) |
 | `vite.config.js` | Konfiguracja Vite – React plugin + proxy `/api` → `localhost:3000` |
-| `vercel.json` | Rewrites: `/api/(.*)` → `/api/$1`, `/(.*)` → `/` (SPA + API) |
 
 ---
 
-## ▲ Deployment
+## 🚀 Deployment
 
-Projekt jest skonfigurowany pod deployment na **Vercel**.
+Projekt deployowany na **własny VPS** przez GitHub Actions.
 
-### Jak wdrożyć
+### Pipeline CI/CD
 
-1. Wejdź na [vercel.com](https://vercel.com) i zaloguj się przez GitHub.
-2. Kliknij **Add New → Project**.
-3. Zaimportuj repozytorium `krzysztofzelman/wizytowka-kzelman`.
-4. Vite wykryje konfigurację automatycznie – nic nie musisz zmieniać.
-5. W zakładce **Environment Variables** dodaj `DEEPSEEK_API_KEY` z kluczem z platform.deepseek.com.
-6. Kliknij **Deploy**.
+Po każdym pushu na gałąź `master` GitHub Actions automatycznie:
+1. Łączy się przez SSH z VPS
+2. Robi `git pull` w `/var/www/kzelman`
+3. Instaluje zależności (`npm install`)
+4. Buduje wersję produkcyjną (`npm run build`)
+5. Usuwa atrybut `crossorigin` z `dist/index.html` (wymagane dla self-hostowanego nginx)
+6. Serwuje statyczne pliki przez **nginx** (reverse proxy)
 
-### Zmienne środowiskowe na Vercel
+### Wymagane sekrety GitHub
+
+| Sekret | Opis |
+|---|---|
+| `VPS_HOST` | Adres IP serwera |
+| `VPS_PORT` | Port SSH (2022) |
+| `VPS_SSH_KEY` | Klucz prywatny SSH użytkownika `deployer` |
+
+### Nginx
+
+Statyczne pliki z `dist/` są serwowane przez nginx jako reverse proxy. Konfiguracja w `/etc/nginx/sites-available/kzelman` wskazuje na katalog `/var/www/kzelman/dist`.
+
+### Zmienne środowiskowe na VPS
 
 | Zmienna | Wartość |
 |---|---|
 | `DEEPSEEK_API_KEY` | `sk-...` (twój klucz z DeepSeek) |
 
 Bez ustawionej zmiennej chatbot nie będzie działał, ale reszta strony działa bez zmian.
-
-### Automatyczne redeploye
-
-Po każdym pushu na główną gałąź GitHub Vercel automatycznie przebudowuje i wdraża stronę. Plik `vercel.json` zapewnia poprawne działanie SPA i endpointów API.
 
 ---
 
@@ -419,26 +415,13 @@ Po każdym pushu na główną gałąź GitHub Vercel automatycznie przebudowuje 
 
 **Przyczyna:** Brak zmiennej `DEEPSEEK_API_KEY` w środowisku.
 
-**Rozwiązanie (lokalnie):** Skopiuj `.env.example` → `.env` i wpisz poprawny klucz DeepSeek.
-
-**Rozwiązanie (Vercel):** Dodaj `DEEPSEEK_API_KEY` w Dashboard → Project → Settings → Environment Variables.
-
-### `vercel dev` nie działa
-
-**Przyczyna:** Brak Vercel CLI lub niezalogowanie.
-
-**Rozwiązanie:**
-```bash
-npm install -g vercel
-vercel login
-npx vercel dev
-```
+**Rozwiązanie:** Skopiuj `.env.example` → `.env` i wpisz poprawny klucz DeepSeek. Na VPS dodaj zmienną w pliku `.env` lub konfiguracji serwera.
 
 ### Proxy API nie działa lokalnie
 
-**Przyczyna:** `vercel dev` nie jest uruchomiony na porcie 3000.
+**Przyczyna:** Serwer API nie jest uruchomiony na porcie 3000.
 
-**Rozwiązanie:** Uruchom `npx vercel dev` w osobnym terminalu – frontend na porcie 5173, API na 3000. Vite proxy przekierowuje `/api/*` na port 3000.
+**Rozwiązanie:** Uruchom serwer API backendu na porcie 3000. Vite proxy w `vite.config.js` przekierowuje `/api/*` na `localhost:3000`.
 
 ### Linter zwraca błędy
 
@@ -465,7 +448,6 @@ Projekt jest w trakcie ciągłego rozwoju. Planowane ulepszenia:
 
 - Pełne przejście na TypeScript (`.tsx`)
 - Dodanie działającego formularza kontaktowego (obecnie `mailto:`)
-- Własna domena
 - Przełącznik trybu jasny / ciemny
 - Więcej projektów w portfolio
 - Rozszerzenie funkcji chatbota (kontekst, załączniki, dłuższa historia)
@@ -508,6 +490,6 @@ Freelancer React / Node.js / AI
 <br />
 📍 Mysłowice, Śląsk, Polska
 
-- 🌐 [wizytowka-kzelman.vercel.app](https://wizytowka-kzelman.vercel.app/)
+- 🌐 [kzelman.pl](https://kzelman.pl/)
 - 🐙 [github.com/krzysztofzelman](https://github.com/krzysztofzelman)
 - 💼 [LinkedIn](https://www.linkedin.com/in/kzelman)

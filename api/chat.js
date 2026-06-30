@@ -1,5 +1,5 @@
 /**
- * Vercel Serverless Function — Chat API
+ * Chat API — endpoint dla chatbota AI
  *
  * POST /api/chat
  * Body: { message: string, history: Array<{role, content}>, count: number }
@@ -17,11 +17,11 @@ const MAX_MESSAGES = 5;
 const TIMEOUT_MS = 15_000;
 
 /**
- * @param {import('@vercel/node').VercelRequest} req
- * @param {import('@vercel/node').VercelResponse} res
+ * @param {import('http').IncomingMessage} req
+ * @param {import('http').ServerResponse} res
  */
 export default async function handler(req, res) {
-  // CORS headers (needed for local dev with vercel dev on different port)
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');

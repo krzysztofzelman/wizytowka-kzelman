@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wizytowka-kzelman.vercel.app/sitemap.xml
+Sitemap: https://kzelman.pl/sitemap.xml

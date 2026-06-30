@@ -129,7 +129,7 @@ export const translations: Record<Lang, TranslationShape> = {
       cta1: 'Zobacz projekty',
       cta2: 'Skontaktuj się',
       available: 'Dostępny na zlecenia',
-      badges: ['React', 'Node.js', 'AI', 'Supabase', 'Vercel'],
+      badges: ['React', 'Node.js', 'AI', 'Supabase'],
     },
     services: {
       label: 'Freelancer',
@@ -324,7 +324,7 @@ export const translations: Record<Lang, TranslationShape> = {
       cta1: 'View projects',
       cta2: 'Get in touch',
       available: 'Available for projects',
-      badges: ['React', 'Node.js', 'AI-powered', 'Supabase', 'Vercel'],
+      badges: ['React', 'Node.js', 'AI-powered', 'Supabase'],
     },
     services: {
       label: 'Freelancer',

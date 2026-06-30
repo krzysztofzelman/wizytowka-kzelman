@@ -335,7 +335,7 @@ wizytowka-kzelman/
 │   │   ├── Projects/               # Portfolio projektów – 4 karty z linkami
 │   │   ├── WhyMe/                  # 4 zalety współpracy
 │   │   ├── Contact/                # Dane kontaktowe i CTA "Napisz do mnie"
-│   │   └── Footer/                 # Stopka z social mediami (GitHub, LinkedIn)
+│   │   └── Footer/                 # Stopka z social mediami (GitHub)
 │   ├── context/
 │   │   └── LanguageContext.jsx     # Kompletne tłumaczenia PL/EN (81 kluczy) + Context Provider
 │   ├── hooks/
@@ -492,4 +492,3 @@ Freelancer React / Node.js / AI
 
 - 🌐 [kzelman.pl](https://kzelman.pl/)
 - 🐙 [github.com/krzysztofzelman](https://github.com/krzysztofzelman)
-- 💼 [LinkedIn](https://www.linkedin.com/in/kzelman)

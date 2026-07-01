@@ -70,6 +70,9 @@ const Projects: FC = () => {
                     </span>
                   )}
                   <h3 className={styles.cardTitle}>{project.title}</h3>
+                  {project.isLive && (
+                    <span className={styles.liveBadge}>🟢 LIVE</span>
+                  )}
                 </div>
 
                 <p className={styles.cardDesc}>{project.desc}</p>

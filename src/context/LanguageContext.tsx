@@ -51,6 +51,19 @@ export interface ProjectItem {
   github: string;
   live: string;
   accent: string;
+  isLive: boolean;
+}
+
+export interface LiveProjectItem {
+  name: string;
+  url: string;
+}
+
+export interface LiveProjectsTranslation {
+  label: string;
+  title: string;
+  subtitle: string;
+  items: LiveProjectItem[];
 }
 
 export interface ProjectsTranslation {
@@ -101,6 +114,7 @@ export interface TranslationShape {
   services: ServicesTranslation;
   logistics: LogisticsTranslation;
   projects: ProjectsTranslation;
+  liveProjects: LiveProjectsTranslation;
   whyMe: WhyMeTranslation;
   contact: ContactTranslation;
   footer: FooterTranslation;
@@ -167,9 +181,9 @@ export const translations: Record<Lang, TranslationShape> = {
           icon: '🎨',
         },
         {
-          title: 'Systemy rezerwacji',
-          desc: 'Kalendarze online, rezerwacje i harmonogramy zintegrowane z powiadomieniami.',
-          icon: '📅',
+          title: 'System zarządzania serwisem',
+          desc: 'SaaS do zarządzania serwisem RTV/AGD — zgłoszenia klientów, baza części, harmonogram serwisantów, przypomnienia SMS i email.',
+          icon: '🔧',
         },
         {
           title: 'Aplikacje miejskie',
@@ -210,15 +224,16 @@ export const translations: Record<Lang, TranslationShape> = {
       label: 'Portfolio',
       title: 'Projekty',
       subtitle: 'Wybrane realizacje — kod otwarty, wyniki mierzalne',
-      viewGithub: 'Kod na GitHub',
+      viewGithub: '📂 Repozytorium',
       items: [
         {
           title: 'Restaurant Clean',
-          desc: 'Platforma SaaS dla restauracji — role użytkownik/kuchnia/kurier/admin, panel magazynowy, Stripe, Supabase.',
+          desc: 'Samodzielnie hostowana platforma SaaS dla restauracji — role użytkownik/kuchnia/kurier/admin, asystent AI kelner (DeepSeek + LangChain), Celery, panel magazynowy, Stripe, Supabase, 57 testów.',
           tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
-          live: 'https://restaurant-clean-omega.vercel.app',
+          live: 'https://restauracja.kzelman.pl/',
           accent: '#f59e0b',
+          isLive: true,
         },
         {
           title: 'Smart Mysłowice v2',
@@ -227,6 +242,7 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice.pl/',
           accent: '#10b981',
+          isLive: true,
         },
         {
           title: 'Mercha',
@@ -235,14 +251,16 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/mercha',
           live: 'https://mercha.kzelman.pl/',
           accent: '#3b82f6',
+          isLive: true,
         },
         {
           title: 'Magazyn App',
-          desc: 'System zarządzania produktami w magazynie — REST API, CRUD, wyszukiwanie po SKU.',
+          desc: 'Wielodziałowy SaaS do zarządzania magazynem — FIFO, partie, kody QR, asystent AI, integracja KSeF, zarządzanie użytkownikami i uprawnieniami.',
           tech: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
           github: 'https://github.com/krzysztofzelman/magazyn-frontend',
           live: 'https://magazyn.kzelman.pl/',
           accent: '#ef4444',
+          isLive: true,
         },
         {
           title: 'Salon Fryzjerski',
@@ -251,6 +269,7 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/salon-fryzjerski',
           live: 'https://salon-fryzjerski-eta.vercel.app',
           accent: '#a855f7',
+          isLive: false,
         },
         {
           title: 'Kawa i Ciasteczko',
@@ -259,7 +278,31 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/kawiarnia',
           live: 'https://kawiarnia-swart.vercel.app',
           accent: '#d97706',
+          isLive: false,
         },
+        {
+          title: 'Napraw Mnie',
+          desc: 'SaaS do zarządzania serwisem RTV/AGD — zgłoszenia klientów, baza części, harmonogram serwisantów, przypomnienia SMS i email, panel admina i panel klienta.',
+          tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Stripe'],
+          github: 'https://github.com/krzysztofzelman/napraw-mnie',
+          live: 'https://napraw.kzelman.pl/',
+          accent: '#06b6d4',
+          isLive: true,
+        },
+      ],
+    },
+    liveProjects: {
+      label: 'Na żywo',
+      title: 'Wszystkie projekty na żywo',
+      subtitle: 'Kliknij i zobacz efekty — każdy projekt działa w produkcyjnym środowisku',
+      items: [
+        { name: 'Restauracja Kzelman', url: 'https://restauracja.kzelman.pl/' },
+        { name: 'Smart Mysłowice', url: 'https://smart-myslowice.pl/' },
+        { name: 'Mercha', url: 'https://mercha.kzelman.pl/' },
+        { name: 'Magazyn App', url: 'https://magazyn.kzelman.pl/' },
+        { name: 'Napraw Mnie', url: 'https://napraw.kzelman.pl/' },
+        { name: 'Salon Fryzjerski', url: 'https://salon-fryzjerski-eta.vercel.app' },
+        { name: 'Kawa i Ciasteczko', url: 'https://kawiarnia-swart.vercel.app' },
       ],
     },
     whyMe: {
@@ -362,9 +405,9 @@ export const translations: Record<Lang, TranslationShape> = {
           icon: '🎨',
         },
         {
-          title: 'Booking systems',
-          desc: 'Online calendars, reservations and schedules integrated with email/SMS notifications.',
-          icon: '📅',
+          title: 'Service management system',
+          desc: 'SaaS for RTV/AGD service management — client tickets, parts database, serviceman schedule, SMS and email reminders.',
+          icon: '🔧',
         },
         {
           title: 'City apps',
@@ -405,15 +448,16 @@ export const translations: Record<Lang, TranslationShape> = {
       label: 'Portfolio',
       title: 'Projects',
       subtitle: 'Selected works — open source, measurable results',
-      viewGithub: 'Code on GitHub',
+      viewGithub: '📂 Repozytorium',
       items: [
         {
           title: 'Restaurant Clean',
-          desc: 'SaaS platform for restaurants — user/kitchen/courier/admin roles, warehouse panel, Stripe, Supabase.',
+          desc: 'Self-hosted SaaS platform for restaurants — user/kitchen/courier/admin roles, AI waiter assistant (DeepSeek + LangChain), Celery, warehouse panel, Stripe, Supabase, 57 tests.',
           tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Stripe'],
           github: 'https://github.com/krzysztofzelman/restaurant-clean',
-          live: 'https://restaurant-clean-omega.vercel.app',
+          live: 'https://restauracja.kzelman.pl/',
           accent: '#f59e0b',
+          isLive: true,
         },
         {
           title: 'Smart Mysłowice v2',
@@ -422,6 +466,7 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/smart-myslowice-v2',
           live: 'https://smart-myslowice.pl/',
           accent: '#10b981',
+          isLive: true,
         },
         {
           title: 'Mercha',
@@ -430,14 +475,16 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/mercha',
           live: 'https://mercha.kzelman.pl/',
           accent: '#3b82f6',
+          isLive: true,
         },
         {
           title: 'Magazyn App',
-          desc: 'Warehouse product management system — REST API, CRUD, SKU search.',
+          desc: 'Multi-tenant warehouse management SaaS — FIFO, batches, QR codes, AI assistant, KSeF integration, user and permission management.',
           tech: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
           github: 'https://github.com/krzysztofzelman/magazyn-frontend',
           live: 'https://magazyn.kzelman.pl/',
           accent: '#ef4444',
+          isLive: true,
         },
         {
           title: 'Salon Fryzjerski',
@@ -446,6 +493,7 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/salon-fryzjerski',
           live: 'https://salon-fryzjerski-eta.vercel.app',
           accent: '#a855f7',
+          isLive: false,
         },
         {
           title: 'Kawa i Ciasteczko',
@@ -454,7 +502,31 @@ export const translations: Record<Lang, TranslationShape> = {
           github: 'https://github.com/krzysztofzelman/kawiarnia',
           live: 'https://kawiarnia-swart.vercel.app',
           accent: '#d97706',
+          isLive: false,
         },
+        {
+          title: 'Napraw Mnie',
+          desc: 'SaaS for RTV/AGD service management — client tickets, parts database, serviceman schedule, SMS and email reminders, admin panel and client panel.',
+          tech: ['React', 'TypeScript', 'Vite', 'Supabase', 'Stripe'],
+          github: 'https://github.com/krzysztofzelman/napraw-mnie',
+          live: 'https://napraw.kzelman.pl/',
+          accent: '#06b6d4',
+          isLive: true,
+        },
+      ],
+    },
+    liveProjects: {
+      label: 'Live',
+      title: 'All live projects',
+      subtitle: 'Click and see the results — every project runs in a production environment',
+      items: [
+        { name: 'Restauracja Kzelman', url: 'https://restauracja.kzelman.pl/' },
+        { name: 'Smart Mysłowice', url: 'https://smart-myslowice.pl/' },
+        { name: 'Mercha', url: 'https://mercha.kzelman.pl/' },
+        { name: 'Magazyn App', url: 'https://magazyn.kzelman.pl/' },
+        { name: 'Napraw Mnie', url: 'https://napraw.kzelman.pl/' },
+        { name: 'Salon Fryzjerski', url: 'https://salon-fryzjerski-eta.vercel.app' },
+        { name: 'Kawa i Ciasteczko', url: 'https://kawiarnia-swart.vercel.app' },
       ],
     },
     whyMe: {

@@ -81,7 +81,7 @@ describe('LanguageContext', () => {
   });
 
   it('has correct project counts in both languages', () => {
-    expect(translations.pl.projects.items).toHaveLength(6);
-    expect(translations.en.projects.items).toHaveLength(6);
+    expect(translations.pl.projects.items).toHaveLength(7);
+    expect(translations.en.projects.items).toHaveLength(7);
   });
 });

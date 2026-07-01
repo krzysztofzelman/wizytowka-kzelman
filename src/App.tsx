@@ -7,6 +7,7 @@ import Hero from './components/Hero/Hero';
 import Services from './components/Services/Services';
 import Logistics from './components/Logistics/Logistics';
 import Projects from './components/Projects/Projects';
+import LiveProjects from './components/LiveProjects/LiveProjects';
 import WhyMe from './components/WhyMe/WhyMe';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
@@ -24,8 +25,8 @@ function App() {
           ? 'Krzysztof Zelman — Freelancer React, TypeScript, Supabase'
           : 'Krzysztof Zelman — Freelance React, TypeScript, Supabase Developer'}</title>
         <meta name="description" content={lang === 'pl'
-          ? 'Krzysztof Zelman – Freelancer React, TypeScript, Supabase z Mysłowic. Tworzę strony internetowe i aplikacje webowe.'
-          : 'Krzysztof Zelman – Freelance React, TypeScript, Supabase developer from Mysłowice, Poland. Building websites and web apps.'} />
+          ? 'Krzysztof Zelman – Freelancer React, TypeScript, Supabase z Mysłowic. Portfolio: Napraw Mnie, Magazyn App, Restaurant Clean i więcej.'
+          : 'Krzysztof Zelman – Freelance React, TypeScript, Supabase developer from Mysłowice, Poland. Portfolio: Napraw Mnie, Magazyn App, Restaurant Clean & more.'} />
       </Helmet>
       <Navbar />
       <main>
@@ -35,6 +36,7 @@ function App() {
         <ErrorBoundary>
           <Projects />
         </ErrorBoundary>
+        <LiveProjects />
         <WhyMe />
         <ErrorBoundary>
           <Contact />
